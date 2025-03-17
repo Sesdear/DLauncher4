@@ -1,3 +1,4 @@
+using DLauncher4Rebuild;
 using System.Windows.Forms;
 
 namespace DristLauncher4
@@ -26,7 +27,8 @@ namespace DristLauncher4
         }
         private void setCurrentNickname()
         {
-            string nickname = MinecraftUser.Default.username;
+            MinecraftUser minecraftUser = new MinecraftUser();
+            string nickname = minecraftUser.username;
             usernameBox.Text = nickname;
         }
         //ItemCheck event handler for your checkedListBox1

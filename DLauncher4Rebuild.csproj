@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CmlLib.Core" Version="4.0.4" />
+    <PackageReference Include="CmlLib.Core.Installer.Forge" Version="1.0.1" />
+    <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MinecraftStartParametrs.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MinecraftStartParametrs.settings</DependentUpon>
+    </Compile>
+    <Compile Update="MinecraftUser.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MinecraftUser.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MinecraftStartParametrs.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MinecraftStartParametrs.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="MinecraftUser.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MinecraftUser.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
