@@ -1,4 +1,3 @@
-using DLauncher4Rebuild;
 using System.Windows.Forms;
 
 namespace DristLauncher4
@@ -27,8 +26,7 @@ namespace DristLauncher4
         }
         private void setCurrentNickname()
         {
-            MinecraftUser minecraftUser = new MinecraftUser();
-            string nickname = minecraftUser.username;
+            string nickname = MinecraftUser.Default.username;
             usernameBox.Text = nickname;
         }
         //ItemCheck event handler for your checkedListBox1
@@ -70,7 +68,7 @@ namespace DristLauncher4
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            /*
+            
             MinecraftMethods minecraftMethods = new MinecraftMethods();
             
            
@@ -81,10 +79,15 @@ namespace DristLauncher4
                 minecraftMethods.generateCrackedUUID();
                 minecraftMethods.InstallAndLaunchMinecraft("test1", "1.20.4");
             }
-            */
             
             
             
+            
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

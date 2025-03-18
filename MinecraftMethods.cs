@@ -17,8 +17,7 @@ using CmlLib.Core.Version;
 using CmlLib.Core.ModLoaders.QuiltMC;
 using System.Diagnostics;
 using System.Threading;
-using DLauncher4Rebuild;
-System.Net.ServicePointManager.DefaultConnectionLimit = 256;
+
 
 namespace DristLauncher4
 {

@@ -8,6 +8,7 @@ namespace DristLauncher4
         [STAThread]
         static void Main()
         {
+            System.Net.ServicePointManager.DefaultConnectionLimit = 256;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new exectServers());

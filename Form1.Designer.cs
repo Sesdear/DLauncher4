@@ -1,7 +1,6 @@
 ﻿using CmlLib.Core;
 using System.Windows.Forms;
 
-
 namespace DristLauncher4
 {
     

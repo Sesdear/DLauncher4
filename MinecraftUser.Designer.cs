@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DLauncher4Rebuild {
+namespace DristLauncher4 {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
