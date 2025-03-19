@@ -139,6 +139,7 @@ namespace DristLauncher4
             saveButton.TabIndex = 4;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = false;
+            saveButton.Click += saveButton_Click;
             // 
             // panel1
             // 
@@ -312,7 +313,7 @@ namespace DristLauncher4
             settingsButton.IconSize = 42;
             settingsButton.Location = new Point(0, 0);
             settingsButton.Name = "settingsButton";
-            settingsButton.Size = new Size(40, 38);
+            settingsButton.Size = new Size(44, 38);
             settingsButton.TabIndex = 4;
             settingsButton.UseVisualStyleBackColor = false;
             settingsButton.Click += settingsButton_Click;
@@ -360,7 +361,6 @@ namespace DristLauncher4
             serverCheckedListBox.Font = new Font("Myanmar Text", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             serverCheckedListBox.ForeColor = SystemColors.Menu;
             serverCheckedListBox.FormattingEnabled = true;
-            serverCheckedListBox.Items.AddRange(new object[] { "server1", "server2" });
             serverCheckedListBox.Location = new Point(0, 0);
             serverCheckedListBox.Name = "serverCheckedListBox";
             serverCheckedListBox.Size = new Size(188, 237);
@@ -373,9 +373,9 @@ namespace DristLauncher4
             panel2.BackColor = Color.Transparent;
             panel2.Controls.Add(settingsButton);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(323, 0);
+            panel2.Location = new Point(319, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(40, 293);
+            panel2.Size = new Size(44, 293);
             panel2.TabIndex = 8;
             // 
             // exectServers

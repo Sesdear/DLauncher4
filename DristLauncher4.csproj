@@ -27,6 +27,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MinecraftUser.settings</DependentUpon>
     </Compile>
+    <Compile Update="IPCONFIGs.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IPCONFIGs.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +42,10 @@
     <None Update="MinecraftUser.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>MinecraftUser.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="IPCONFIGs.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>IPCONFIGs.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

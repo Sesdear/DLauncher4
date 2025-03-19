@@ -25,7 +25,7 @@ namespace DristLauncher4 {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Java\\jre1.8.0_421")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Java\\jdk-17\\bin\\java.exe")]
         public string JavaPath {
             get {
                 return ((string)(this["JavaPath"]));
@@ -49,7 +49,7 @@ namespace DristLauncher4 {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int XmsGb {
             get {
                 return ((int)(this["XmsGb"]));
@@ -151,6 +151,18 @@ namespace DristLauncher4 {
             }
             set {
                 this["GameLaucherVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("default")]
+        public string Mirror {
+            get {
+                return ((string)(this["Mirror"]));
+            }
+            set {
+                this["Mirror"] = value;
             }
         }
     }
