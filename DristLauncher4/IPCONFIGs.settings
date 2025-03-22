@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DristLauncher4" GeneratedClassName="IPCONFIGs">
+  <Profiles />
+  <Settings>
+    <Setting Name="url_to_build" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://raw.githubusercontent.com/Sesdear/ips_for_dl4/main/server_ips.json</Value>
+    </Setting>
+    <Setting Name="file_server_url" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="servers_info_url" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="manifest_server_url" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="manifest_file_name" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
