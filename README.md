@@ -83,6 +83,7 @@ Example content:
     "Server3": "ExampleServer3",
     "Server4": "ExampleServer4"
 }
+```
 This file contains the list of servers. Each entry points to a folder in the server root directory.
 
 ### 2. Main Server File
