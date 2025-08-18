@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DristLauncher_4" GeneratedClassName="serversUrls">
+  <Profiles />
+  <Settings>
+    <Setting Name="GithubUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://github.com/Sesdear/ips_for_dl4/blob/main/server_ips.json</Value>
+    </Setting>
+    <Setting Name="ServerIp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">109.174.10.81</Value>
+    </Setting>
+    <Setting Name="ServerPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30752</Value>
+    </Setting>
+    <Setting Name="ServerProtocol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http</Value>
+    </Setting>
+    <Setting Name="ServersListFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">servers_index.json</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
