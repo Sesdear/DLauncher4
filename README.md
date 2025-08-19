@@ -30,7 +30,7 @@
 	"ModPackFiles":"minecraft" 
 }
 ```
-`ServerName`: Обязательно
+`ServerName`: Обязательно \
 `Description`: Обязательно
 `Image`: Обязательно
 `MVersion`: Обязательно
