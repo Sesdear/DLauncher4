@@ -31,13 +31,13 @@
 }
 ```
 `ServerName`: Обязательно \
-`Description`: Обязательно
-`Image`: Обязательно
-`MVersion`: Обязательно
-`MModLoader`: Обязательно
-`MModLoaderVersion`: Обязательно
-`ModPackSize`: Опционально
-`ModPackVersion`: Опционально
+`Description`: Обязательно \
+`Image`: Обязательно \
+`MVersion`: Обязательно \
+`MModLoader`: Обязательно \
+`MModLoaderVersion`: Обязательно \
+`ModPackSize`: Опционально \
+`ModPackVersion`: Опционально \
 `ModPackFiles`: НЕ ТРОГАТЬ
 
 ### 3. Обновление сборки
