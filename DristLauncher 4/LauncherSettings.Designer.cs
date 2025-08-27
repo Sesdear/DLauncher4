@@ -34,5 +34,53 @@ namespace DristLauncher_4 {
                 this["DebugMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("225,201,173")]
+        public string ButtonsColor {
+            get {
+                return ((string)(this["ButtonsColor"]));
+            }
+            set {
+                this["ButtonsColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("159,87,39")]
+        public string PanelsColor {
+            get {
+                return ((string)(this["PanelsColor"]));
+            }
+            set {
+                this["PanelsColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("72,40,19")]
+        public string MainColor {
+            get {
+                return ((string)(this["MainColor"]));
+            }
+            set {
+                this["MainColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("104,50,4")]
+        public string ContainersColor {
+            get {
+                return ((string)(this["ContainersColor"]));
+            }
+            set {
+                this["ContainersColor"] = value;
+            }
+        }
     }
 }

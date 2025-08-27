@@ -39,6 +39,16 @@ namespace DristLauncher_4
             }
 
         }
+        public bool CheckJavaPath()
+        {
+            if (!File.Exists(MinecraftOptions.Default.JavaPath))
+            {
+                MessageBox.Show($"Java 17 не найдена по пути:\n{MinecraftOptions.Default.JavaPath}\nИзмените в настройках путь", "Ошибка");
+                return false;
+            }
+            else { return true; }
+            
+        }
         public string CheckExistsDir(string path)
         {
             if (!Directory.Exists(path))
@@ -55,7 +65,7 @@ namespace DristLauncher_4
     }
     public class CrackedUUID
     {
-        public void generateCrackedUUID()
+        public void generateCrackedUUID(DebugForm debugForm)
         {
             /*
              Check if uuid in file MinecraftUser.settings is empty generated new uuid
@@ -66,16 +76,20 @@ namespace DristLauncher_4
                 Guid randomUuid = Guid.NewGuid();
 
                 string hexUuid = randomUuid.ToString("N");
-
-                Console.WriteLine($"New uuid created: {hexUuid}");
-
+                if (debugForm != null)
+                {
+                    
+                    
+                    debugForm.Log("Generate new uuid: " + hexUuid);
+                    
+                }
                 MinecraftOptions.Default.Uuid = hexUuid;
                 MinecraftOptions.Default.Save();
 
             }
 
         }
-        public void generateCrackedAccessToken()
+        public void generateCrackedAccessToken(DebugForm debugForm)
         {
             /*
              Check if uuid in file MinecraftUser.settings is empty generated new uuid
@@ -86,8 +100,12 @@ namespace DristLauncher_4
                 Guid randomUuid = Guid.NewGuid();
 
                 string hexUuid = randomUuid.ToString("N");
-
-                Console.WriteLine($"New uuid created: {hexUuid}");
+                if (debugForm != null)
+                {
+                    
+                    debugForm.Log("Generate new AccessToken: " + hexUuid);
+                    
+                }
 
                 MinecraftOptions.Default.Uuid = hexUuid;
                 MinecraftOptions.Default.Save();
@@ -95,7 +113,7 @@ namespace DristLauncher_4
             }
 
         }
-        public void generateCrackedClientToken()
+        public void generateCrackedClientToken(DebugForm debugForm)
         {
             /*
              Check if uuid in file MinecraftUser.settings is empty generated new uuid
@@ -106,9 +124,13 @@ namespace DristLauncher_4
                 Guid randomUuid = Guid.NewGuid();
 
                 string hexUuid = randomUuid.ToString("N");
-
-                Console.WriteLine($"New uuid created: {hexUuid}");
-
+                if (debugForm != null)
+                {
+                    
+                    
+                    debugForm.Log("Generate new ClientToken: " + hexUuid);
+                    
+                }
                 MinecraftOptions.Default.Uuid = hexUuid;
                 MinecraftOptions.Default.Save();
 
@@ -120,11 +142,7 @@ namespace DristLauncher_4
     {
         public void SetPropInfo(
             Label PropServerNameLabel,
-            Label PropDescriptionLabel,
-            Label PropMVersionLabel,
-            Label PropMModLoaderLabel,
-            Label PropodPackSizeLabel,
-            Label PropModPackVersionLabel
+            Label PropDescriptionLabel
             )
         {
             try
@@ -140,10 +158,6 @@ namespace DristLauncher_4
 
                 PropServerNameLabel.Text = serverinfo.ServerName;
                 PropDescriptionLabel.Text = serverinfo.Description;
-                PropMVersionLabel.Text = serverinfo.MVersion;
-                PropMModLoaderLabel.Text = serverinfo.MModLoader;
-                PropodPackSizeLabel.Text = serverinfo.ModPackSize;
-                PropModPackVersionLabel.Text = serverinfo.ModPackVersion;
 
             }
             catch (JsonException e)
@@ -157,9 +171,9 @@ namespace DristLauncher_4
 
 
         }
-        public void StartSetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1)
+        public void StartSetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
         {
-            SetServerIndex(MainServerName1, MainDescription1, MainImage1);
+            SetServerIndex(MainServerName1, MainDescription1, MainImage1, debugForm);
         }
 
         public string ServerIndexUrlBuilder(string path_to_serverList)
@@ -173,7 +187,7 @@ namespace DristLauncher_4
             return url;
         }
 
-        private async Task SetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1)
+        private async Task SetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
         {
 
             var responseMethods = new ResponseMethods();
@@ -192,11 +206,17 @@ namespace DristLauncher_4
                     !string.IsNullOrEmpty(strValue))
                 {
                     string url = ServersUrlBuilder(strValue);
-                    Console.WriteLine($"{property.Name}: {url}");
+                    if (debugForm != null)
+                    {
+                        
+                        
+                        debugForm.Log($"{property.Name}: {url}");
+                        
+                    }
 
                     try
                     {
-                        HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url);
+                        HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                         string jsonResponse = await response.Content.ReadAsStringAsync();
 
                         File.WriteAllText("data.json", jsonResponse);
@@ -208,9 +228,12 @@ namespace DristLauncher_4
                             MessageBox.Show("Ошибка: Не удалось десериализовать JSON или список серверов пуст.");
                             return;
                         }
-                        if (LauncherSettings.Default.DebugMode == true)
+                        if (debugForm != null)
                         {
-                            MessageBox.Show($"ServerName: {serverinfo.ServerName}\n" +
+                            
+                            
+                            debugForm.Log($"DATA.JSON\n" +
+                                            $"ServerName: {serverinfo.ServerName}\n" +
                                             $"Description: {serverinfo.Description}\n" +
                                             $"Image: {serverinfo.Image}\n" +
                                             $"MVersion: {serverinfo.MVersion}\n" +
@@ -219,8 +242,8 @@ namespace DristLauncher_4
                                             $"ModPackSize: {serverinfo.ModPackSize}\n" +
                                             $"ModPackVersion: {serverinfo.ModPackVersion}\n" +
                                             $"ModPackFiles: {serverinfo.ModPackFiles}");
+                            
                         }
-
                         MinecraftOptions.Default.MVersion = serverinfo.MVersion;
                         MinecraftOptions.Default.MModLoaderVersion = serverinfo.MModLoaderVersion;
                         MinecraftOptions.Default.MModLoader = serverinfo.MModLoader;
@@ -231,9 +254,11 @@ namespace DristLauncher_4
                         MainDescription1.Text = serverinfo.Description;
                         MainImage1.LoadCompleted += (s, e) =>
                         {
-                            if (LauncherSettings.Default.DebugMode == true)
+                            if (debugForm != null)
                             {
-                                MessageBox.Show("Картинка загружена успешно.");
+                                
+                                debugForm.Log("Картинка загружена успешно.");
+                                
                             }
                         };
 
@@ -247,7 +272,10 @@ namespace DristLauncher_4
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show($"Неизвестная ошибка при загрузке серверов {url}: {e.Message}");
+                        if (debugForm != null)
+                        {
+                            debugForm.Log($"Неизвестная ошибка при загрузке серверов {url}: {e.Message}");
+                        }
                     }
                 }
             }
@@ -255,14 +283,14 @@ namespace DristLauncher_4
 
 
         }
-        private async Task SetServerIndex(Label MainServerName1, Label MainDescription1, PictureBox MainImage1)
+        private async Task SetServerIndex(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
         {
             string url = ServerIndexUrlBuilder(serversUrls.Default.ServersListFile);
             var responseMethods = new ResponseMethods();
 
             try
             {
-                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url);
+                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
                 File.WriteAllText("serverList.json", jsonResponse);
@@ -281,16 +309,17 @@ namespace DristLauncher_4
                 ServersList.Default.Server4 = servers.Server4 ?? string.Empty;
 
                 ServersList.Default.Save();
-
-                if (LauncherSettings.Default.DebugMode == true)
+                if (debugForm != null)
                 {
-                    MessageBox.Show($"Успешно загружены сервера:\n" +
-                               $"Server1: {ServersList.Default.Server1}\n" +
-                               $"Server2: {ServersList.Default.Server2}\n" +
-                               $"Server3: {ServersList.Default.Server3}\n" +
-                               $"Server4: {ServersList.Default.Server4}");
+                    
+                    debugForm.Log($"Успешно загружены сервера:\n" +
+                                $"Server1: {ServersList.Default.Server1}\n" +
+                                $"Server2: {ServersList.Default.Server2}\n" +
+                                $"Server3: {ServersList.Default.Server3}\n" +
+                                $"Server4: {ServersList.Default.Server4}");
+                    
                 }
-                await SetServersPanels(MainServerName1, MainDescription1, MainImage1);
+                await SetServersPanels(MainServerName1, MainDescription1, MainImage1, debugForm);
             }
             catch (JsonException e)
             {
@@ -298,19 +327,22 @@ namespace DristLauncher_4
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Неизвестная ошибка при загрузке серверов {url}: {e.Message}");
+                if (debugForm != null)
+                {
+                    debugForm.Log($"Неизвестная ошибка при загрузке серверов {url}: {e.Message}");
+                }
             }
         }
 
 
-        private async Task GetGithubInfo(Label MainServerName1, Label MainDescription1, PictureBox MainImage1)
+        private async Task GetGithubInfo(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
         {
             string url = serversUrls.Default.GithubUrl;
             var responseMethods = new ResponseMethods();
 
             try
             {
-                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url);
+                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
                 //MessageBox.Show(jsonResponse); // Можно закомментировать после отладки
@@ -331,11 +363,12 @@ namespace DristLauncher_4
                 serversUrls.Default.ServerProtocol = info.TypeOfProtocol;
                 serversUrls.Default.ServersListFile = info.ServersListFile;
                 serversUrls.Default.Save();
-                await SetServerIndex(MainServerName1, MainDescription1, MainImage1);
-
-                if (LauncherSettings.Default.DebugMode == true)
-                {
-                    MessageBox.Show("Данные успешно получены и сохранены.");
+                await SetServerIndex(MainServerName1, MainDescription1, MainImage1, debugForm);
+                if (debugForm != null)
+                { 
+                    
+                    debugForm.Log("Данные успешно получены и сохранены.");
+                    
                 }
             }
             catch (JsonException e)
@@ -355,11 +388,11 @@ namespace DristLauncher_4
                 Timeout = TimeSpan.FromSeconds(30)
             };
 
-            public async Task<HttpResponseMessage> ResponseUrlAsync(string url)
+            public async Task<HttpResponseMessage> ResponseUrlAsync(string url, DebugForm debugForm)
             {
-                if (LauncherSettings.Default.DebugMode == true)
+                if (debugForm != null)
                 {
-                    MessageBox.Show(url);
+                    debugForm.Log(url);
                 }
 
                 if (string.IsNullOrWhiteSpace(url))

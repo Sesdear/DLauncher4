@@ -6,7 +6,7 @@
       <Value Profile="(Default)">https://github.com/Sesdear/ips_for_dl4/blob/main/server_ips.json</Value>
     </Setting>
     <Setting Name="ServerIp" Type="System.String" Scope="User">
-      <Value Profile="(Default)">109.174.10.81</Value>
+      <Value Profile="(Default)">217.114.10.85</Value>
     </Setting>
     <Setting Name="ServerPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30752</Value>

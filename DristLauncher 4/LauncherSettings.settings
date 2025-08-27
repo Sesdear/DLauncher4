@@ -5,5 +5,17 @@
     <Setting Name="DebugMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ButtonsColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">225,201,173</Value>
+    </Setting>
+    <Setting Name="PanelsColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">159,87,39</Value>
+    </Setting>
+    <Setting Name="MainColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">72,40,19</Value>
+    </Setting>
+    <Setting Name="ContainersColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">104,50,4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

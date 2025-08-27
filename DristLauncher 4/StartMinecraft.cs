@@ -6,6 +6,7 @@ using CmlLib.Core.ProcessBuilder;
 using CmlLib.Core.Version;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +16,19 @@ namespace DristLauncher_4
 {
     internal class StartMinecraft
     {
-        public async Task FStartMinecraft(ProgressForm progressForm)
+        public async Task Start(DebugForm debugForm, Guna.UI2.WinForms.Guna2Button button)
+        {
+            ModsFunctions modsFunctions = new ModsFunctions();
+            FilesFunctions filesFunctions = new FilesFunctions();
+            using (var progressForm = new ProgressForm())
+            {
+                await modsFunctions.StartModsChecker(debugForm, progressForm, button);
+                await filesFunctions.StartFilesChecker(progressForm, debugForm, button);
+
+            }
+
+        }
+        public async Task FStartMinecraft(ProgressForm progressForm, DebugForm debugForm)
         {
             progressForm.Log("Запуск майнкрафта.......");
             var mcPath = new MinecraftPath("./minecraft");
@@ -44,11 +57,117 @@ namespace DristLauncher_4
                 string.IsNullOrEmpty(launchOption.Session?.UUID) ||
                 string.IsNullOrEmpty(launchOption.Session?.Username))
             {
+                if (debugForm != null)
+                {
+                    debugForm.Log($"Сессия невалидна! Проверь данные (AccessToken: {launchOption.Session?.AccessToken}, UUID: {launchOption.Session?.UUID}, Username: {launchOption.Session?.Username})");
+                }
+
                 progressForm.Log($"Сессия невалидна! Проверь данные (AccessToken: {launchOption.Session?.AccessToken}, UUID: {launchOption.Session?.UUID}, Username: {launchOption.Session?.Username})");
                 return;
             }
+            if (debugForm != null)
+            {
+                
+                debugForm.Log($"JavaPath {launchOption.JavaPath}\nMaximumRamMb {launchOption.MaximumRamMb}\nMinimumRamMb {launchOption.MinimumRamMb}\nVersionType {launchOption.VersionType}\nGameLauncherVersion {launchOption.GameLauncherVersion}");
+                
+            }
+            bool isInstalled = await CheckForInstall(launchOption, progressForm, debugForm, mcPath);
 
-            await DownloadAndStart(launchOption, launcher, progressForm);
+            if (!isInstalled)
+            {
+                await DownloadAndStart(launchOption, launcher, progressForm, debugForm);
+            }
+            else
+            {
+                await StartMinecraftWithForge(launchOption, launcher, progressForm, debugForm, mcPath);
+            }
+
+
+
+        }
+
+
+        public async Task<bool> CheckForInstall(
+    MLaunchOption mLaunchOption,
+    ProgressForm progressForm,
+    DebugForm debugForm,
+    MinecraftPath minecraftPath)
+        {
+            // проверяем базовые папки
+            if (!Directory.Exists(minecraftPath.Versions) || 
+                !Directory.Exists(minecraftPath.Library) || 
+                !Directory.Exists(minecraftPath.Assets) ||
+                !Directory.Exists(minecraftPath.Resource) ||
+                !Directory.Exists(minecraftPath.Runtime))
+            {
+                return false;
+            }
+            if (!File.Exists($"./minecraft/versions/{MinecraftOptions.Default.MVersion}-{MinecraftOptions.Default.MModLoader}-{MinecraftOptions.Default.MModLoaderVersion}/{MinecraftOptions.Default.MVersion}-{MinecraftOptions.Default.MModLoader}-{MinecraftOptions.Default.MModLoaderVersion}.jar"))
+            {
+                return false;
+            }
+            progressForm.Log($"Minecraft {MinecraftOptions.Default.MVersion} найден и готов к запуску.");
+            return true;
+        }
+
+        public async Task StartMinecraftWithForge(
+    MLaunchOption mLaunchOption,
+    MinecraftLauncher minecraftLauncher,
+    ProgressForm progressForm,
+    DebugForm debugForm,
+    MinecraftPath minecraftPath)
+        {
+            try
+            {
+                // формируем имя forge-версии
+                var forgeVersionId = $"{MinecraftOptions.Default.MVersion}-forge-{MinecraftOptions.Default.MModLoaderVersion}";
+
+                // грузим список версий напрямую из лаунчера
+                var versions = await minecraftLauncher.GetAllVersionsAsync();
+
+                // проверяем, установлен ли Forge
+                if (!versions.Any(v => v.Name == forgeVersionId))
+                {
+                    MessageBox.Show($"Forge {forgeVersionId} не установлен!");
+                    return;
+                }
+
+                progressForm.Log($"Запуск Minecraft {forgeVersionId}...");
+
+                // создаём процесс
+                var process = await minecraftLauncher.CreateProcessAsync(forgeVersionId, mLaunchOption);
+
+                if (process == null)
+                {
+                    MessageBox.Show("Не удалось собрать процесс запуска!");
+                    return;
+                }
+
+                // подключаем обработчики вывода
+                process.OutputDataReceived += (s, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                        debugForm?.Log("[OUT] " + e.Data);
+                };
+
+                process.ErrorDataReceived += (s, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                        debugForm?.Log("[ERR] " + e.Data);
+                };
+
+                // запускаем и включаем асинхронное чтение вывода
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка запуска Minecraft с Forge: " + ex.Message);
+                return;
+            }
         }
 
 
@@ -56,10 +175,9 @@ namespace DristLauncher_4
         public async Task DownloadAndStart(
             MLaunchOption mLaunchOption,
             MinecraftLauncher minecraftLauncher,
-            ProgressForm progressForm)
+            ProgressForm progressForm, DebugForm debugForm)
         {
-
-           
+            
 
             // прогресс в байтах
             var fileProgress = new Progress<InstallerProgressChangedEventArgs>(e =>
@@ -78,17 +196,47 @@ namespace DristLauncher_4
 
             try
             {
-                var forgeVersionName = await forgeInstaller.Install(
-                    MinecraftOptions.Default.MVersion,
-                    MinecraftOptions.Default.MModLoaderVersion,
-                    new ForgeInstallOptions { ByteProgress = byteProgress, FileProgress = fileProgress });
+                string forgeVersionName = null;
 
-                progressForm.Log("Forge installed: " + forgeVersionName);
+                for (int i = 0; i < 3; i++)
+                {
+                    try
+                    {
+                        forgeVersionName = await forgeInstaller.Install(
+                            MinecraftOptions.Default.MVersion,
+                            MinecraftOptions.Default.MModLoaderVersion,
+                            new ForgeInstallOptions { ByteProgress = byteProgress, FileProgress = fileProgress });
+
+                        if (debugForm != null)
+                        {
+                            debugForm.Log("Forge installed: " + forgeVersionName);
+                        }
+                        progressForm.Log("Forge installed: " + forgeVersionName);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (debugForm != null)
+                        {
+                            debugForm.Log($"Ошибка установки Forge (попытка {i + 1}): {ex.Message}");
+                        }
+                        progressForm.Log($"Ошибка установки Forge (попытка {i + 1}): {ex.Message}");
+                        if (i == 2) throw; // после 3 попыток окончательно падаем
+                    }
+                }
+
+                if (forgeVersionName == null)
+                {
+                    MessageBox.Show("Forge так и не удалось установить!");
+                    return;
+                }
 
                 var process = await minecraftLauncher.CreateProcessAsync(forgeVersionName, mLaunchOption);
                 if (process == null)
                 {
-                    progressForm.Log("Не удалось собрать процесс запуска!");
+                    
+                    MessageBox.Show("Не удалось собрать процесс запуска!");
+                    
                     return;
                 }
 
@@ -96,7 +244,7 @@ namespace DristLauncher_4
             }
             catch (Exception ex)
             {
-                progressForm.Log("Ошибка установки/запуска Forge: " + ex);
+                MessageBox.Show("Ошибка установки/запуска Forge: " + ex);
             }
 
 

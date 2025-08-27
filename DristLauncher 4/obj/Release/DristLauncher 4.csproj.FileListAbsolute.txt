@@ -1,0 +1,58 @@
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\runtimes\win-x86\native\WebView2Loader.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\runtimes\win-x64\native\WebView2Loader.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\runtimes\win-arm64\native\WebView2Loader.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.exe.config
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.exe
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.pdb
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.Commons.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.Installer.Forge.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Guna.UI2.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\HtmlAgilityPack.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ICSharpCode.SharpZipLib.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.Core.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.WinForms.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.Wpf.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Newtonsoft.Json.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\SevenZip.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Buffers.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Memory.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Numerics.Vectors.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Encodings.Web.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Json.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Dataflow.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Extensions.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.ValueTuple.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\HtmlAgilityPack.pdb
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\HtmlAgilityPack.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ICSharpCode.SharpZipLib.pdb
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ICSharpCode.SharpZipLib.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.Core.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.WinForms.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Microsoft.Web.WebView2.Wpf.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\Newtonsoft.Json.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\SevenZip.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Buffers.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Memory.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Numerics.Vectors.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Encodings.Web.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Json.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Dataflow.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Extensions.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.ValueTuple.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.csproj.AssemblyReference.cache
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.DebugForm.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.MainWindow.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.ProgressForm.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.Properties.Resources.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.SettingsWindow.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.SimpleProgressBar.resources
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.csproj.GenerateResource.cache
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.csproj.CoreCompileInputs.cache
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLau.4236396C.Up2Date
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.exe
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.pdb

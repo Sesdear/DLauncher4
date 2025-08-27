@@ -15,12 +15,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-///////////////////////////////////////////////////////////////////////////
-///
-///              Сделать скачивание forge и майна
-///              Cделать запуск игры
-///
-///////////////////////////////////////////////////////////////////////////
+
 namespace DristLauncher_4
 {
     public class MinecraftSupport
@@ -37,13 +32,13 @@ namespace DristLauncher_4
     }
     public class ManifestBuilder
     {
-        public List<string> GetModsList(string modsPath)
+        public List<string> GetModsList(string modsPath, DebugForm debugForm)
         {
             List<string> modList = new List<string>();
 
             if (!Directory.Exists(modsPath))
             {
-                Console.WriteLine("Папка модов не найдена.");
+                MessageBox.Show("Папка модов не найдена.");
                 return modList;
             }
 
@@ -54,13 +49,13 @@ namespace DristLauncher_4
 
             return modList;
         }
-        public List<string> GetFilesList(string filesPath)
+        public List<string> GetFilesList(string filesPath, DebugForm debugForm)
         {
             List<string> modList = new List<string>();
 
             if (!Directory.Exists(filesPath))
             {
-                Console.WriteLine("Папка модов не найдена.");
+                MessageBox.Show("Папка модов не найдена.");
                 return modList;
             }
 
@@ -74,7 +69,7 @@ namespace DristLauncher_4
     }
     public class FileDownloader
     {
-        public static async Task DownloadFileAsync(string url, string filePath)
+        public static async Task DownloadFileAsync(string url, string filePath, DebugForm debugForm)
         {
             using (var httpClient = new HttpClient())
             {
@@ -92,15 +87,18 @@ namespace DristLauncher_4
                             }
                         }
                     }
-                    Console.WriteLine($"Файл успешно загружен: {filePath}");
+                    if (debugForm != null)
+                    {
+                        debugForm.Log($"Файл успешно загружен: {filePath}");
+                    }
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine($"Ошибка HTTP запроса: {e.Message}");
+                    MessageBox.Show($"Ошибка HTTP запроса: {e.Message}");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Ошибка при скачивании файла: {e.Message}");
+                    MessageBox.Show($"Ошибка при скачивании файла: {e.Message}");
                 }
             }
         }
@@ -118,33 +116,32 @@ namespace DristLauncher_4
             string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/DristPunk4/minecraft/mods/{file}";
             return url;
         }
-        private async Task DownloadMod(string url, string pathToSave)
+        private async Task DownloadMod(string url, string pathToSave, DebugForm debugForm)
         {
-            await FileDownloader.DownloadFileAsync(url, pathToSave);
+            await FileDownloader.DownloadFileAsync(url, pathToSave, debugForm);
         }
 
 
 
-        public async Task StartModsChecker()
+        public async Task StartModsChecker(DebugForm debugForm, ProgressForm progressForm, Guna.UI2.WinForms.Guna2Button button)
         {
-            using (var progressForm = new ProgressForm())
-            {
+            
                 progressForm.Show();
                 progressForm.Log("▶ Начинаем проверку модов...");
 
                 ResponseMethods responseMethods = new ResponseMethods();
                 ManifestBuilder manifestBuilder = new ManifestBuilder();
                 ChecksForValid checksForValid = new ChecksForValid();
-                FilesFunctions filesFunctions = new FilesFunctions();
+                
 
                 string url = ModManifestUrlBuilder();
                 string modsPath = checksForValid.CheckExistsDir("minecraft/mods");
 
-                List<string> clientMods = manifestBuilder.GetModsList(modsPath);
+                List<string> clientMods = manifestBuilder.GetModsList(modsPath, debugForm);
 
                 try
                 {
-                    HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url);
+                    HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
 
                     ModsManifest serverInfo = JsonConvert.DeserializeObject<ModsManifest>(jsonResponse);
@@ -177,7 +174,7 @@ namespace DristLauncher_4
                     {
                         string modPathOnServer = ModPathUrl(mod);
                         string modPathClient = Path.Combine(modsPath, mod);
-                        await DownloadMod(modPathOnServer, modPathClient);
+                        await DownloadMod(modPathOnServer, modPathClient, debugForm);
 
                         progressForm.Log($"⬇ Загружен мод: {mod}");
                         currentStep++;
@@ -187,13 +184,18 @@ namespace DristLauncher_4
                     progressForm.Log("✅ Синхронизация модов завершена.");
 
                     // запускаем проверку файлов и передаем туда progressForm
-                    await filesFunctions.StartFilesChecker(progressForm);
+                    
                 }
                 catch (Exception e)
                 {
-                    progressForm.Log($"❌ Ошибка при загрузке модов: {e.Message}");
+                if (debugForm != null)
+                {
+                    debugForm.Log($"❌ Ошибка при загрузке модов: {e.Message}");
                 }
-            }
+                progressForm.Log($"❌ Ошибка при загрузке модов: {e.Message}");
+                button.Enabled = true;
+                }
+            
         }
 
 
@@ -213,12 +215,12 @@ namespace DristLauncher_4
             return url;
         }
 
-        private async Task DownloadFile(string url, string pathToSave)
+        private async Task DownloadFile(string url, string pathToSave, DebugForm debugForm)
         {
-            await FileDownloader.DownloadFileAsync(url, pathToSave);
+            await FileDownloader.DownloadFileAsync(url, pathToSave, debugForm);
         }
 
-        public async Task StartFilesChecker(ProgressForm progressForm)
+        public async Task StartFilesChecker(ProgressForm progressForm, DebugForm debugForm, Guna.UI2.WinForms.Guna2Button button)
         {
             ResponseMethods responseMethods = new ResponseMethods();
             ChecksForValid checksForValid = new ChecksForValid();
@@ -231,13 +233,14 @@ namespace DristLauncher_4
 
             try
             {
-                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url);
+                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
                 FilesManifest serverManifest = JsonConvert.DeserializeObject<FilesManifest>(jsonResponse);
                 if (serverManifest?.files_hashes == null)
                 {
                     progressForm.Log("❌ Ошибка: список файлов пуст.");
+                    button.Enabled = true;
                     return;
                 }
 
@@ -284,9 +287,17 @@ namespace DristLauncher_4
 
                     if (File.Exists(fullPath))
                     {
-                        string localHash = FilesManifestGenerator.ComputeSHA256(fullPath);
+                        string localHash = FilesManifestGenerator.ComputeSHA256(fullPath, debugForm);
                         if (localHash == serverHash)
                             needDownload = false;
+                    }
+                    if (relativePath == "minecraft/options.txt" && File.Exists(@"./minecraft/options.txt"))
+                    {
+                        needDownload = false;
+                    }
+                    if (relativePath.StartsWith("minecraft/config/") && File.Exists(fullPath))
+                    {
+                        needDownload = false;
                     }
 
                     if (needDownload)
@@ -294,7 +305,7 @@ namespace DristLauncher_4
                         Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
                         string fileUrl = FilePathUrl(kvp.Key);
 
-                        await DownloadFile(fileUrl, fullPath);
+                        await DownloadFile(fileUrl, fullPath, debugForm);
                         progressForm.Log($"⬇ Загружен файл: {relativePath}");
                     }
 
@@ -305,11 +316,16 @@ namespace DristLauncher_4
                 progressForm.Log("✅ Синхронизация файлов завершена.");
                 
                 var smine = new StartMinecraft();
-                await smine.FStartMinecraft(progressForm);
+                await smine.FStartMinecraft(progressForm, debugForm);
             }
             catch (Exception ex)
             {
+                if (debugForm != null)
+                {
+                    debugForm.Log($"❌ Ошибка при загрузке файлов: {ex.Message}");
+                }
                 progressForm.Log($"❌ Ошибка при загрузке файлов: {ex.Message}");
+                button.Enabled = true;
             }
 
             
@@ -344,7 +360,7 @@ namespace DristLauncher_4
         "optinos.txt"
     };
 
-        public static string ComputeSHA256(string filePath)
+        public static string ComputeSHA256(string filePath, DebugForm debugForm)
         {
             try
             {
@@ -357,13 +373,13 @@ namespace DristLauncher_4
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при обработке {filePath}: {ex.Message}");
+                MessageBox.Show($"Ошибка при обработке {filePath}: {ex.Message}");
                 return null;
             }
         }
 
 
-        public static List<string> GenerateHashes(string basePath)
+        public static List<string> GenerateHashes(string basePath, DebugForm debugForm)
         {
             var result = new List<string>();
 
@@ -389,7 +405,7 @@ namespace DristLauncher_4
             foreach (var file in files)
             {
                 string relativePath = GetRelativePath(basePath, file).Replace('\\', '/');
-                string hash = ComputeSHA256(file);
+                string hash = ComputeSHA256(file, debugForm);
                 if (hash != null)
                 {
                     result.Add($"{relativePath} : {hash}");
@@ -399,16 +415,16 @@ namespace DristLauncher_4
             return result;
         }
 
-        public void GenerateManifest(string folderPath)
+        public void GenerateManifest(string folderPath, DebugForm debugForm)
         {
             if (!Directory.Exists(folderPath))
             {
-                Console.WriteLine("Указанный путь не является папкой.");
+                MessageBox.Show("Указанный путь не является папкой.");
                 return;
             }
 
             string outputFile = Path.Combine(folderPath, "filesManifest.json");
-            var newHashes = GenerateHashes(folderPath);
+            var newHashes = GenerateHashes(folderPath, debugForm);
             int version = 1;
 
             if (File.Exists(outputFile))
@@ -428,13 +444,16 @@ namespace DristLauncher_4
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ошибка чтения {outputFile}: {ex.Message}");
-                    Console.WriteLine("Начинаем с версии 1.");
+                    MessageBox.Show($"Ошибка чтения {outputFile}: {ex.Message}");
+                    MessageBox.Show("Начинаем с версии 1.");
                 }
             }
             else
             {
-                Console.WriteLine("Файл манифеста не найден. Создаём новый с версией 1.");
+                if (debugForm != null)
+                {
+                    debugForm.Log("Файл манифеста не найден. Создаём новый с версией 1.");
+                }
             }
 
             var manifest = new FilesManifest
@@ -449,7 +468,10 @@ namespace DristLauncher_4
             };
 
             File.WriteAllText(outputFile, System.Text.Json.JsonSerializer.Serialize(manifest, jsonOptions));
-            Console.WriteLine($"JSON файл успешно создан/обновлён: {outputFile} (версия: {version})");
+            if (debugForm != null)
+            {
+                debugForm.Log($"JSON файл успешно создан/обновлён: {outputFile} (версия: {version})");
+            }
         }
 
         public static string GetRelativePath(string basePath, string fullPath)

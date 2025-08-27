@@ -37,7 +37,7 @@ namespace DristLauncher_4 {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("109.174.10.81")]
+        [global::System.Configuration.DefaultSettingValueAttribute("217.114.10.85")]
         public string ServerIp {
             get {
                 return ((string)(this["ServerIp"]));

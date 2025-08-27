@@ -1,0 +1,14 @@
+Z:\DristLauncher_4\DristLauncher 4\DL4\bin\Release\net8.0\DL4.exe
+Z:\DristLauncher_4\DristLauncher 4\DL4\bin\Release\net8.0\DL4.deps.json
+Z:\DristLauncher_4\DristLauncher 4\DL4\bin\Release\net8.0\DL4.runtimeconfig.json
+Z:\DristLauncher_4\DristLauncher 4\DL4\bin\Release\net8.0\DL4.dll
+Z:\DristLauncher_4\DristLauncher 4\DL4\bin\Release\net8.0\DL4.pdb
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.GeneratedMSBuildEditorConfig.editorconfig
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.AssemblyInfoInputs.cache
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.AssemblyInfo.cs
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.csproj.CoreCompileInputs.cache
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.dll
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\refint\DL4.dll
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.pdb
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\DL4.genruntimeconfig.cache
+Z:\DristLauncher_4\DristLauncher 4\DL4\obj\Release\net8.0\ref\DL4.dll
