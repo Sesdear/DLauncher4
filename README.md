@@ -39,7 +39,8 @@
 `MModLoaderVersion`: Обязательно \
 `ModPackSize`: Опционально \
 `ModPackVersion`: Опционально \
-`ModPackFiles`: НЕ ТРОГАТЬ
+`ModPackFiles`: НЕ ТРОГАТЬ \
+`query.port`: Обязательно
 
 ### 3. Обновление сборки
 ##### ⚠️️ НЕ ЗАГРУЖАТЬ РАСПОКОВАНЫЕ РЕСУРС ПАКИ
