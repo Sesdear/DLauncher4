@@ -6,10 +6,10 @@
 Наполнение файла:
 ```
 {
-    "Server1": "ExampleServer1",
-    "Server2": "ExampleServer2",
-    "Server3": "ExampleServer3",
-    "Server4": "ExampleServer4"
+    "Servers": [
+	"ExServer1",
+	"ExServer2"
+]
 }
 ```
 Тут находится список серверов, каждый пункт указывает на папку в корне сервера
@@ -27,7 +27,8 @@
 	"MModLoaderVersion":"Версия мод лоадера майнкрафта",
 	"ModPackSize":"Вес модпака",
 	"ModPackVersion":"Версия модпака",
-	"ModPackFiles":"minecraft" 
+	"ModPackFiles":"minecraft",
+	"query.port": 25565 
 }
 ```
 `ServerName`: Обязательно \
