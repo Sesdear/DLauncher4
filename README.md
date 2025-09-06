@@ -28,6 +28,7 @@
 	"ModPackSize":"Вес модпака",
 	"ModPackVersion":"Версия модпака",
 	"ModPackFiles":"minecraft",
+	"MServerIp": example.com
 	"query.port": 25565 
 }
 ```
