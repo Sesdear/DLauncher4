@@ -28,8 +28,7 @@
 	"ModPackSize":"Вес модпака",
 	"ModPackVersion":"Версия модпака",
 	"ModPackFiles":"minecraft",
-	"MServerIp": example.com
-	"query.port": 25565 
+	"MServerIp": "ip:port"
 }
 ```
 `ServerName`: Обязательно \
@@ -41,7 +40,7 @@
 `ModPackSize`: Опционально \
 `ModPackVersion`: Опционально \
 `ModPackFiles`: НЕ ТРОГАТЬ \
-`query.port`: Обязательно
+`MServerIp`: Обязательно
 
 ### 3. Обновление сборки
 ##### ⚠️️ НЕ ЗАГРУЖАТЬ РАСПОКОВАНЫЕ РЕСУРС ПАКИ
