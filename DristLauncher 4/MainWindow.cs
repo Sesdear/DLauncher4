@@ -2,35 +2,62 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DristLauncher_4
 {
-/// <summary>
-/// ToDo
-/// 1. Сделать проверку на наличие чтобы каждый раз не перегружать майнкрафт
-/// 
-/// 
-/// </summary>
+    /// <summary>
+    /// ToDo
+    /// 1. Сделать проверку на наличие чтобы каждый раз не перегружать майнкрафт
+    /// 
+    /// 
+    /// </summary>
     public partial class MainWindow : Form
     {
-        
+
         DebugForm debugForm;
         public MainWindow()
         {
-            
+
             InitializeComponent();
             ApplyTheme();
+
+
+
+
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.AutoScroll = true;
+
+
+
+
+
+
+
+            foreach (ServerItemControl item in flowLayoutPanel1.Controls)
+            {
+                item.ServerSelected += Item_ServerSelected;
+            }
+
+
+
+            if (!LauncherSettings.Default.HasUpgraded)
+            {
+                LauncherSettings.Default.Upgrade();
+                MinecraftOptions.Default.Upgrade();
+                serversUrls.Default.Upgrade();
+
+                LauncherSettings.Default.HasUpgraded = true; // пользовательская bool-настройка
+                LauncherSettings.Default.Save();
+                MinecraftOptions.Default.Save();
+                serversUrls.Default.Save();
+            }
+
 
 
 
@@ -38,22 +65,23 @@ namespace DristLauncher_4
             GetServerInfo getServerInfo = new GetServerInfo();
             ChecksForValid checksForValid = new ChecksForValid();
 
+
             string currentVersion = FileVersionInfo
     .GetVersionInfo(Assembly.GetExecutingAssembly().Location)
     .FileVersion;
 
             vLabel.Text = currentVersion;
 
-            
+
             if (LauncherSettings.Default.DebugMode)
             {
                 debugForm = new DebugForm();
                 debugForm.Show();
             }
 
-            getServerInfo.StartSetServersPanels(ServerLabel1, ServerDescriptionLabel1, ServerPictureBox1, debugForm);
-            checksForValid.CheckExistsDir("minecraft");
-            
+
+
+
             NicknameTextBox.Text = MinecraftOptions.Default.Nickname;
 
             LoadNewsFromServer("http://217.114.10.85:30752/news.json");
@@ -67,13 +95,18 @@ namespace DristLauncher_4
             if (newsList.Count > 0)
                 ShowNews(0);
 
+            getServerInfo.StartSupport(debugForm, flowLayoutPanel1, ServerNameLabel, ServerDescriptionLabel);
 
 
 
 
 
 
-
+        }
+        private void Item_ServerSelected(object sender, EventArgs e)
+        {
+            var item = sender as ServerItemControl;
+            MessageBox.Show($"Вы выбрали сервер: {item.ServerName}");
         }
 
         private void ApplyTheme()
@@ -94,7 +127,7 @@ namespace DristLauncher_4
             panel1.BackColor = ParseColor(LauncherSettings.Default.PanelsColor);
             guna2Panel1.BackColor = ParseColor(LauncherSettings.Default.PanelsColor);
             panel3.BackColor = ParseColor(LauncherSettings.Default.PanelsColor);
-            panel4.BackColor = ParseColor(LauncherSettings.Default.PanelsColor);
+
 
             splitContainer2.BackColor = ParseColor(LauncherSettings.Default.ContainersColor);
             splitContainer3.BackColor = ParseColor(LauncherSettings.Default.ContainersColor);
@@ -236,7 +269,7 @@ namespace DristLauncher_4
 
         }
 
-        
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -279,22 +312,14 @@ namespace DristLauncher_4
 
         }
 
-        private void ServerButton1_Click(object sender, EventArgs e)
-        {
-            GetServerInfo getServerInfo1 = new GetServerInfo();
-            getServerInfo1.SetPropInfo(
-                ServerNameLabel,
-                ServerDescriptionLabel
-                
-                );
-        }
+
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
             ChecksForValid checks = new ChecksForValid();
             StartMinecraft startMinecraft = new StartMinecraft();
             CrackedUUID crackedUUID = new CrackedUUID();
-            
+
 
             string uuid = MinecraftOptions.Default.Uuid;
             string accessToken = MinecraftOptions.Default.AccessToken;
@@ -303,7 +328,7 @@ namespace DristLauncher_4
             MinecraftOptions.Default.Nickname = nickname;
             MinecraftOptions.Default.Save();
 
-            
+
             if (uuid == string.Empty)
             {
                 crackedUUID.generateCrackedUUID(debugForm);
@@ -334,10 +359,10 @@ namespace DristLauncher_4
                 startMinecraft.Start(debugForm, PlayButton);
             }
             catch { PlayButton.Enabled = true; }
-            
 
 
-            
+
+
         }
 
         private void SettingsButton_Click(object sender, EventArgs e)
@@ -360,5 +385,7 @@ namespace DristLauncher_4
         {
             Process.Start("https://github.com/Sesdear/DLauncher4/releases");
         }
+
+
     }
 }

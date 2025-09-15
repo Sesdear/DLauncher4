@@ -1,15 +1,8 @@
-﻿using Guna.UI2.WinForms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DristLauncher_4
@@ -30,7 +23,7 @@ namespace DristLauncher_4
             string javaPath = MinecraftOptions.Default.JavaPath;
             if (javaPath == string.Empty)
             {
-                
+
                 JavaPathTextBox.Text = "C:\\Program Files\\Java\\jdk-17\\bin\\javaw.exe";
                 MinecraftOptions.Default.JavaPath = "C:\\Program Files\\Java\\jdk-17\\bin\\javaw.exe";
             }
@@ -90,18 +83,18 @@ namespace DristLauncher_4
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            
+
             MinecraftOptions.Default.JavaPath = JavaPathTextBox.Text;
             MinecraftOptions.Default.MaximumRamMb = Convert.ToInt32(RamNumericUpDown.Value) * 1024;
             LauncherSettings.Default.DebugMode = DebugCheckBox.Checked;
 
             MinecraftOptions.Default.Save();
             LauncherSettings.Default.Save();
-            
-            
+
+
             MessageBox.Show("Settings Save", "Setiings Saved");
-            
-            
+
+
 
         }
 

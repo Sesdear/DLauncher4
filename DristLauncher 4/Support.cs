@@ -1,16 +1,11 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Windows.Forms;
 using System.IO;
-using System.Reflection;
-using System.Drawing;
-using System.Security.Policy;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 namespace DristLauncher_4
@@ -47,7 +42,7 @@ namespace DristLauncher_4
                 return false;
             }
             else { return true; }
-            
+
         }
         public string CheckExistsDir(string path)
         {
@@ -67,33 +62,22 @@ namespace DristLauncher_4
     {
         public void generateCrackedUUID(DebugForm debugForm)
         {
-            /*
-             Check if uuid in file MinecraftUser.settings is empty generated new uuid
-             */
             string currentUUID = MinecraftOptions.Default.Uuid;
             if (string.IsNullOrEmpty(currentUUID))
             {
                 Guid randomUuid = Guid.NewGuid();
-
                 string hexUuid = randomUuid.ToString("N");
                 if (debugForm != null)
                 {
-                    
-                    
                     debugForm.Log("Generate new uuid: " + hexUuid);
-                    
                 }
                 MinecraftOptions.Default.Uuid = hexUuid;
                 MinecraftOptions.Default.Save();
-
             }
-
         }
         public void generateCrackedAccessToken(DebugForm debugForm)
         {
-            /*
-             Check if uuid in file MinecraftUser.settings is empty generated new uuid
-             */
+
             string currentUUID = MinecraftOptions.Default.AccessToken;
             if (string.IsNullOrEmpty(currentUUID))
             {
@@ -102,9 +86,9 @@ namespace DristLauncher_4
                 string hexUuid = randomUuid.ToString("N");
                 if (debugForm != null)
                 {
-                    
+
                     debugForm.Log("Generate new AccessToken: " + hexUuid);
-                    
+
                 }
 
                 MinecraftOptions.Default.Uuid = hexUuid;
@@ -115,9 +99,7 @@ namespace DristLauncher_4
         }
         public void generateCrackedClientToken(DebugForm debugForm)
         {
-            /*
-             Check if uuid in file MinecraftUser.settings is empty generated new uuid
-             */
+
             string currentUUID = MinecraftOptions.Default.ClientToken;
             if (string.IsNullOrEmpty(currentUUID))
             {
@@ -126,10 +108,10 @@ namespace DristLauncher_4
                 string hexUuid = randomUuid.ToString("N");
                 if (debugForm != null)
                 {
-                    
-                    
+
+
                     debugForm.Log("Generate new ClientToken: " + hexUuid);
-                    
+
                 }
                 MinecraftOptions.Default.Uuid = hexUuid;
                 MinecraftOptions.Default.Save();
@@ -171,9 +153,9 @@ namespace DristLauncher_4
 
 
         }
-        public void StartSetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
+        public void StartSupport(DebugForm debugForm, FlowLayoutPanel flowLayoutPanel, Label ServerNameLabel, Label ServerDescriptionLabel)
         {
-            SetServerIndex(MainServerName1, MainDescription1, MainImage1, debugForm);
+            SetServerIndex(debugForm, flowLayoutPanel, ServerNameLabel, ServerDescriptionLabel);
         }
 
         public string ServerIndexUrlBuilder(string path_to_serverList)
@@ -187,103 +169,85 @@ namespace DristLauncher_4
             return url;
         }
 
-        private async Task SetServersPanels(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
+        private async Task SetServersPanels(List<string> serverUrls, FlowLayoutPanel panel, DebugForm debugForm, Label ServerNameLabel, Label ServerDescriptionLabel)
         {
-
             var responseMethods = new ResponseMethods();
 
+            panel.Controls.Clear();
 
-            foreach (PropertyInfo property in ServersList.Default.GetType().GetProperties())
+            foreach (string serverUrl in serverUrls)
             {
-                // Получаем значение свойства из ServersList.Default
-                object value = property.GetValue(ServersList.Default);
+                if (string.IsNullOrEmpty(serverUrl))
+                    continue;
 
-                string strValue = value?.ToString() ?? "null";
+                string url = ServersUrlBuilder(serverUrl);
 
-                // Условие: имя свойства содержит "Server", значение не пустое и не является типом класса
-                if (property.Name.Contains("Server1") &&
-                    strValue != "DristLauncher_4.ServersList" &&
-                    !string.IsNullOrEmpty(strValue))
+                if (debugForm != null)
+                    debugForm.Log($"Загрузка сервера: {url}");
+
+                try
                 {
-                    string url = ServersUrlBuilder(strValue);
+                    HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    File.WriteAllText("data.json", jsonResponse);
+
+
+                    ServerInfo serverInfo = JsonConvert.DeserializeObject<ServerInfo>(jsonResponse);
+
+                    if (serverInfo == null)
+                    {
+                        if (debugForm != null)
+                            debugForm.Log($"Ошибка: не удалось десериализовать {url}");
+                        continue;
+                    }
+
                     if (debugForm != null)
                     {
-                        
-                        
-                        debugForm.Log($"{property.Name}: {url}");
-                        
+                        debugForm.Log($"DATA.JSON\n" + $"ServerName: {serverInfo.ServerName}\n" +
+                            $"Description: {serverInfo.Description}\n" +
+                            $"Image: {serverInfo.Image}\n" +
+                            $"MVersion: {serverInfo.MVersion}\n" +
+                            $"MModLoader: {serverInfo.MModLoader}\n" +
+                            $"MModLoaderVersion: {serverInfo.MModLoaderVersion}\n" +
+                            $"ModPackSize: {serverInfo.ModPackSize}\n" +
+                            $"ModPackVersion: {serverInfo.ModPackVersion}\n" +
+                            $"ModPackFiles: {serverInfo.ModPackFiles}");
                     }
+                    MinecraftOptions.Default.MVersion = serverInfo.MVersion;
+                    MinecraftOptions.Default.MModLoaderVersion = serverInfo.MModLoaderVersion;
+                    MinecraftOptions.Default.MModLoader = serverInfo.MModLoader;
+                    MinecraftOptions.Default.Path = serverInfo.ServerName;
+                    MinecraftOptions.Default.Save();
 
-                    try
+
+
+                    ServerItemControl serverControl = new ServerItemControl(serverInfo.ServerName, serverInfo.Image, serverInfo.MServerIp);
+                    serverControl.ServerSelected += (s, e) =>
                     {
-                        HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
-                        string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                        File.WriteAllText("data.json", jsonResponse);
-
-                        ServerInfo serverinfo = JsonConvert.DeserializeObject<ServerInfo>(jsonResponse);
-
-                        if (serverinfo == null)
-                        {
-                            MessageBox.Show("Ошибка: Не удалось десериализовать JSON или список серверов пуст.");
-                            return;
-                        }
-                        if (debugForm != null)
-                        {
-                            
-                            
-                            debugForm.Log($"DATA.JSON\n" +
-                                            $"ServerName: {serverinfo.ServerName}\n" +
-                                            $"Description: {serverinfo.Description}\n" +
-                                            $"Image: {serverinfo.Image}\n" +
-                                            $"MVersion: {serverinfo.MVersion}\n" +
-                                            $"MModLoader: {serverinfo.MModLoader}\n" +
-                                            $"MModLoaderVersion: {serverinfo.MModLoaderVersion}\n" +
-                                            $"ModPackSize: {serverinfo.ModPackSize}\n" +
-                                            $"ModPackVersion: {serverinfo.ModPackVersion}\n" +
-                                            $"ModPackFiles: {serverinfo.ModPackFiles}");
-                            
-                        }
-                        MinecraftOptions.Default.MVersion = serverinfo.MVersion;
-                        MinecraftOptions.Default.MModLoaderVersion = serverinfo.MModLoaderVersion;
-                        MinecraftOptions.Default.MModLoader = serverinfo.MModLoader;
-                        MinecraftOptions.Default.Path = serverinfo.ServerName;
+                        ServerNameLabel.Text = serverInfo.ServerName;
+                        ServerDescriptionLabel.Text = serverInfo.Description;
+                        MinecraftOptions.Default.SelectedServer = serverInfo.ServerName;
                         MinecraftOptions.Default.Save();
+                    };
 
-                        MainServerName1.Text = serverinfo.ServerName;
-                        MainDescription1.Text = serverinfo.Description;
-                        MainImage1.LoadCompleted += (s, e) =>
-                        {
-                            if (debugForm != null)
-                            {
-                                
-                                debugForm.Log("Картинка загружена успешно.");
-                                
-                            }
-                        };
+                    // Добавляем в FlowLayoutPanel
+                    panel.Controls.Add(serverControl);
 
-                        MainImage1.LoadAsync(serverinfo.Image);
-
-
-                    }
-                    catch (JsonException e)
-                    {
-                        MessageBox.Show($"Ошибка JSON при загрузке серверов: {e.Message}");
-                    }
-                    catch (Exception e)
-                    {
-                        if (debugForm != null)
-                        {
-                            debugForm.Log($"Неизвестная ошибка при загрузке серверов {url}: {e.Message}");
-                        }
-                    }
+                }
+                catch (JsonException e)
+                {
+                    MessageBox.Show($"Ошибка JSON при загрузке сервера {serverUrl}: {e.Message}");
+                }
+                catch (Exception e)
+                {
+                    if (debugForm != null)
+                        debugForm.Log($"Неизвестная ошибка при загрузке сервера {url}: {e.Message}");
                 }
             }
-
-
-
         }
-        private async Task SetServerIndex(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
+
+        private async Task SetServerIndex(DebugForm debugForm, FlowLayoutPanel flowLayoutPanel, Label ServerNameLabel, Label ServerDescriptionLabel)
         {
             string url = ServerIndexUrlBuilder(serversUrls.Default.ServersListFile);
             var responseMethods = new ResponseMethods();
@@ -293,33 +257,28 @@ namespace DristLauncher_4
                 HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                File.WriteAllText("serverList.json", jsonResponse);
+                File.WriteAllText("servers_index.json", jsonResponse);
+
 
                 ServerIndexes servers = JsonConvert.DeserializeObject<ServerIndexes>(jsonResponse);
 
-                if (servers == null)
+                if (servers == null || servers.Servers == null || servers.Servers.Count == 0)
                 {
                     MessageBox.Show("Ошибка: Не удалось десериализовать JSON или список серверов пуст.");
                     return;
                 }
 
-                ServersList.Default.Server1 = servers.Server1 ?? string.Empty;
-                ServersList.Default.Server2 = servers.Server2 ?? string.Empty;
-                ServersList.Default.Server3 = servers.Server3 ?? string.Empty;
-                ServersList.Default.Server4 = servers.Server4 ?? string.Empty;
+                await SetServersPanels(servers.Servers, flowLayoutPanel, debugForm, ServerNameLabel, ServerDescriptionLabel);
 
-                ServersList.Default.Save();
+
                 if (debugForm != null)
                 {
-                    
-                    debugForm.Log($"Успешно загружены сервера:\n" +
-                                $"Server1: {ServersList.Default.Server1}\n" +
-                                $"Server2: {ServersList.Default.Server2}\n" +
-                                $"Server3: {ServersList.Default.Server3}\n" +
-                                $"Server4: {ServersList.Default.Server4}");
-                    
+                    debugForm.Log("Успешно загружены сервера:\n");
+                    for (int i = 0; i < servers.Servers.Count; i++)
+                    {
+                        debugForm.Log($"Server{i + 1}: {servers.Servers[i]}");
+                    }
                 }
-                await SetServersPanels(MainServerName1, MainDescription1, MainImage1, debugForm);
             }
             catch (JsonException e)
             {
@@ -335,7 +294,7 @@ namespace DristLauncher_4
         }
 
 
-        private async Task GetGithubInfo(Label MainServerName1, Label MainDescription1, PictureBox MainImage1, DebugForm debugForm)
+        private async Task GetGithubInfo(DebugForm debugForm, FlowLayoutPanel flowLayoutPanel)
         {
             string url = serversUrls.Default.GithubUrl;
             var responseMethods = new ResponseMethods();
@@ -345,10 +304,10 @@ namespace DristLauncher_4
                 HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                //MessageBox.Show(jsonResponse); // Можно закомментировать после отладки
+
                 File.WriteAllText("githubIps.json", jsonResponse);
 
-                // Десериализуем JSON в объект GithubInfo (а не Dictionary)
+
                 GithubInfo info = JsonConvert.DeserializeObject<GithubInfo>(jsonResponse);
 
                 if (info == null)
@@ -357,18 +316,18 @@ namespace DristLauncher_4
                     return;
                 }
 
-                // Используем данные из десериализованного объекта
+
                 serversUrls.Default.ServerIp = info.DefaultIp;
                 serversUrls.Default.ServerPort = info.DefaultPort;
                 serversUrls.Default.ServerProtocol = info.TypeOfProtocol;
                 serversUrls.Default.ServersListFile = info.ServersListFile;
                 serversUrls.Default.Save();
-                await SetServerIndex(MainServerName1, MainDescription1, MainImage1, debugForm);
+
                 if (debugForm != null)
-                { 
-                    
+                {
+
                     debugForm.Log("Данные успешно получены и сохранены.");
-                    
+
                 }
             }
             catch (JsonException e)
@@ -382,75 +341,75 @@ namespace DristLauncher_4
         }
     }
     public class ResponseMethods
+    {
+        private static readonly HttpClient _httpClient = new HttpClient()
         {
-            private static readonly HttpClient _httpClient = new HttpClient()
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+
+        public async Task<HttpResponseMessage> ResponseUrlAsync(string url, DebugForm debugForm)
+        {
+            if (debugForm != null)
             {
-                Timeout = TimeSpan.FromSeconds(30)
-            };
+                debugForm.Log(url);
+            }
 
-            public async Task<HttpResponseMessage> ResponseUrlAsync(string url, DebugForm debugForm)
+            if (string.IsNullOrWhiteSpace(url))
             {
-                if (debugForm != null)
+                throw new ArgumentException("URL cannot be null or empty.", nameof(url));
+            }
+
+            try
+            {
+
+                if (!Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
                 {
-                    debugForm.Log(url);
+                    throw new ArgumentException("Invalid URL format");
                 }
 
-                if (string.IsNullOrWhiteSpace(url))
+
+                if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
                 {
-                    throw new ArgumentException("URL cannot be null or empty.", nameof(url));
+                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "DristLauncher/4.0");
                 }
 
-                try
+                HttpResponseMessage response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+
+                if (!response.IsSuccessStatusCode)
                 {
-
-                    if (!Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
-                    {
-                        throw new ArgumentException("Invalid URL format");
-                    }
-
-
-                    if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
-                    {
-                        _httpClient.DefaultRequestHeaders.Add("User-Agent", "DristLauncher/4.0");
-                    }
-
-                    HttpResponseMessage response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new HttpRequestException($"Server returned {response.StatusCode}: {response.ReasonPhrase}, {url}");
-                    }
-
-                    return response;
+                    throw new HttpRequestException($"Server returned {response.StatusCode}: {response.ReasonPhrase}, {url}");
                 }
-                catch (HttpRequestException httpEx)
-                {
-                    System.Windows.Forms.MessageBox.Show(
-                        $"Ошибка подключения к серверу:\n{httpEx.Message}",
-                        "Ошибка сети",
-                        System.Windows.Forms.MessageBoxButtons.OK
-                        );
-                    throw;
-                }
-                catch (TaskCanceledException)
-                {
-                    System.Windows.Forms.MessageBox.Show(
-                        "Превышено время ожидания ответа от сервера",
-                        "Таймаут",
-                        System.Windows.Forms.MessageBoxButtons.OK);
-                    throw;
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show(
-                        $"Произошла непредвиденная ошибка:\n{ex.Message}",
-                        "Ошибка",
-                        System.Windows.Forms.MessageBoxButtons.OK);
-                    throw;
-                }
+
+                return response;
+            }
+            catch (HttpRequestException httpEx)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    $"Ошибка подключения к серверу:\n{httpEx.Message}",
+                    "Ошибка сети",
+                    System.Windows.Forms.MessageBoxButtons.OK
+                    );
+                throw;
+            }
+            catch (TaskCanceledException)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    "Превышено время ожидания ответа от сервера",
+                    "Таймаут",
+                    System.Windows.Forms.MessageBoxButtons.OK);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    $"Произошла непредвиденная ошибка:\n{ex.Message}",
+                    "Ошибка",
+                    System.Windows.Forms.MessageBoxButtons.OK);
+                throw;
             }
         }
+    }
 
 
-    
+
 }

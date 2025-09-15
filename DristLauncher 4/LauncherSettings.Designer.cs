@@ -82,5 +82,17 @@ namespace DristLauncher_4 {
                 this["ContainersColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HasUpgraded {
+            get {
+                return ((bool)(this["HasUpgraded"]));
+            }
+            set {
+                this["HasUpgraded"] = value;
+            }
+        }
     }
 }

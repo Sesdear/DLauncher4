@@ -45,6 +45,9 @@ namespace DristLauncher_4
                 MessageBox.Show(e.Exception.ToString(), "ThreadException");
             };
 
+            Updater updater = new Updater();
+            updater.StartUpdater("https://raw.githubusercontent.com/Sesdear/DLauncher4/refs/heads/main/update.xml");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

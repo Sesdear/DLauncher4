@@ -4,6 +4,7 @@ Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\runtimes\win-arm6
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.exe.config
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.exe
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\DristLauncher 4.pdb
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\AutoUpdater.NET.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.Commons.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\CmlLib.Core.Installer.Forge.dll
@@ -25,6 +26,8 @@ Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Json.
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Dataflow.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Extensions.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.ValueTuple.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\AutoUpdater.NET.pdb
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\AutoUpdater.NET.xml
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\HtmlAgilityPack.pdb
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\HtmlAgilityPack.xml
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ICSharpCode.SharpZipLib.pdb
@@ -44,6 +47,27 @@ Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Text.Json.
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Dataflow.xml
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.Threading.Tasks.Extensions.xml
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\System.ValueTuple.xml
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ar\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\cs\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\da\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\de\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\es\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\fr\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\it\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ja-JP\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ko\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\lv\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\nl\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\pl\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\pt\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\pt-BR\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\ru\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\sk\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\sv\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\th\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\tr\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\zh\AutoUpdater.NET.resources.dll
+Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\bin\Release\zh-TW\AutoUpdater.NET.resources.dll
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher 4.csproj.AssemblyReference.cache
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.DebugForm.resources
 Z:\DristLauncher_4\DristLauncher 4\DristLauncher 4\obj\Release\DristLauncher_4.MainWindow.resources

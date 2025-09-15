@@ -17,5 +17,8 @@
     <Setting Name="ContainersColor" Type="System.String" Scope="User">
       <Value Profile="(Default)">104,50,4</Value>
     </Setting>
+    <Setting Name="HasUpgraded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

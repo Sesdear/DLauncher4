@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DristLauncher_4
 {
@@ -16,13 +12,10 @@ namespace DristLauncher_4
 
     public class ServerIndexes
     {
-        public string Server1 { get; set; }
-        public string Server2 { get; set; }
-        public string Server3 { get; set; }
-        public string Server4 { get; set; }
+        public List<string> Servers { get; set; }
     }
-    
-    
+
+
     public class ServerInfo
     {
         public string ServerName { get; set; }
@@ -34,6 +27,7 @@ namespace DristLauncher_4
         public string ModPackSize { get; set; }
         public string ModPackVersion { get; set; }
         public string ModPackFiles { get; set; }
+        public string MServerIp { get; set; }
 
     }
 

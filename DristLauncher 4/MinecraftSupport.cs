@@ -7,12 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -107,13 +103,13 @@ namespace DristLauncher_4
     {
         private string ModManifestUrlBuilder()
         {
-            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/DristPunk4/modsManifest.json";
+            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/{MinecraftOptions.Default.SelectedServer}/modsManifest.json";
             return url;
         }
 
         private string ModPathUrl(string file)
         {
-            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/DristPunk4/minecraft/mods/{file}";
+            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/{MinecraftOptions.Default.SelectedServer}/minecraft/mods/{file}";
             return url;
         }
         private async Task DownloadMod(string url, string pathToSave, DebugForm debugForm)
@@ -125,77 +121,77 @@ namespace DristLauncher_4
 
         public async Task StartModsChecker(DebugForm debugForm, ProgressForm progressForm, Guna.UI2.WinForms.Guna2Button button)
         {
-            
-                progressForm.Show();
-                progressForm.Log("▶ Начинаем проверку модов...");
 
-                ResponseMethods responseMethods = new ResponseMethods();
-                ManifestBuilder manifestBuilder = new ManifestBuilder();
-                ChecksForValid checksForValid = new ChecksForValid();
-                
+            progressForm.Show();
+            progressForm.Log("▶ Начинаем проверку модов...");
 
-                string url = ModManifestUrlBuilder();
-                string modsPath = checksForValid.CheckExistsDir("minecraft/mods");
+            ResponseMethods responseMethods = new ResponseMethods();
+            ManifestBuilder manifestBuilder = new ManifestBuilder();
+            ChecksForValid checksForValid = new ChecksForValid();
 
-                List<string> clientMods = manifestBuilder.GetModsList(modsPath, debugForm);
 
-                try
+            string url = ModManifestUrlBuilder();
+            string modsPath = checksForValid.CheckExistsDir($"{MinecraftOptions.Default}/minecraft/mods");
+
+            List<string> clientMods = manifestBuilder.GetModsList(modsPath, debugForm);
+
+            try
+            {
+                HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                ModsManifest serverInfo = JsonConvert.DeserializeObject<ModsManifest>(jsonResponse);
+                if (serverInfo?.mods == null)
                 {
-                    HttpResponseMessage response = await responseMethods.ResponseUrlAsync(url, debugForm);
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    ModsManifest serverInfo = JsonConvert.DeserializeObject<ModsManifest>(jsonResponse);
-                    if (serverInfo?.mods == null)
-                    {
-                        progressForm.Log("❌ Ошибка: список модов пуст.");
-                        return;
-                    }
-
-                    // какие моды удалить и скачать
-                    var modsToDelete = clientMods.Except(serverInfo.mods).ToList();
-                    var modsToDownload = serverInfo.mods.Except(clientMods).ToList();
-
-                    int totalSteps = modsToDelete.Count + modsToDownload.Count;
-                    int currentStep = 0;
-
-                    foreach (string mod in modsToDelete)
-                    {
-                        string modPath = Path.Combine(modsPath, mod);
-                        if (File.Exists(modPath))
-                        {
-                            File.Delete(modPath);
-                            progressForm.Log($"🗑 Удалён мод: {mod}");
-                        }
-                        currentStep++;
-                        progressForm.SetProgress(currentStep, totalSteps);
-                    }
-
-                    foreach (string mod in modsToDownload)
-                    {
-                        string modPathOnServer = ModPathUrl(mod);
-                        string modPathClient = Path.Combine(modsPath, mod);
-                        await DownloadMod(modPathOnServer, modPathClient, debugForm);
-
-                        progressForm.Log($"⬇ Загружен мод: {mod}");
-                        currentStep++;
-                        progressForm.SetProgress(currentStep, totalSteps);
-                    }
-
-                    progressForm.Log("✅ Синхронизация модов завершена.");
-
-                    // запускаем проверку файлов и передаем туда progressForm
-                    
+                    progressForm.Log("❌ Ошибка: список модов пуст.");
+                    return;
                 }
-                catch (Exception e)
+
+                // какие моды удалить и скачать
+                var modsToDelete = clientMods.Except(serverInfo.mods).ToList();
+                var modsToDownload = serverInfo.mods.Except(clientMods).ToList();
+
+                int totalSteps = modsToDelete.Count + modsToDownload.Count;
+                int currentStep = 0;
+
+                foreach (string mod in modsToDelete)
                 {
+                    string modPath = Path.Combine(modsPath, mod);
+                    if (File.Exists(modPath))
+                    {
+                        File.Delete(modPath);
+                        progressForm.Log($"🗑 Удалён мод: {mod}");
+                    }
+                    currentStep++;
+                    progressForm.SetProgress(currentStep, totalSteps);
+                }
+
+                foreach (string mod in modsToDownload)
+                {
+                    string modPathOnServer = ModPathUrl(mod);
+                    string modPathClient = Path.Combine(modsPath, mod);
+                    await DownloadMod(modPathOnServer, modPathClient, debugForm);
+
+                    progressForm.Log($"⬇ Загружен мод: {mod}");
+                    currentStep++;
+                    progressForm.SetProgress(currentStep, totalSteps);
+                }
+
+                progressForm.Log("✅ Синхронизация модов завершена.");
+
+                // запускаем проверку файлов и передаем туда progressForm
+
+            }
+            catch (Exception e)
+            {
                 if (debugForm != null)
                 {
                     debugForm.Log($"❌ Ошибка при загрузке модов: {e.Message}");
                 }
                 progressForm.Log($"❌ Ошибка при загрузке модов: {e.Message}");
                 button.Enabled = true;
-                }
-            
+            }
+
         }
 
 
@@ -205,7 +201,7 @@ namespace DristLauncher_4
     {
         private string FilesManifestUrlBuilder()
         {
-            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/DristPunk4/filesManifest.json";
+            string url = $"http://{serversUrls.Default.ServerIp}:{serversUrls.Default.ServerPort}/{MinecraftOptions.Default.SelectedServer}/filesManifest.json";
             return url;
         }
 
@@ -225,7 +221,7 @@ namespace DristLauncher_4
             ResponseMethods responseMethods = new ResponseMethods();
             ChecksForValid checksForValid = new ChecksForValid();
 
-            string basePath = checksForValid.CheckExistsDir("./");
+            string basePath = checksForValid.CheckExistsDir($"./{MinecraftOptions.Default.SelectedServer}");
             string url = FilesManifestUrlBuilder();
 
             progressForm.Log("▶ Начинаем проверку файлов...");
@@ -278,9 +274,9 @@ namespace DristLauncher_4
                     string relativePath = kvp.Key;
                     string serverHash = kvp.Value;
 
-                    const string prefixToRemove = "DristPunk4/";
-                    if (relativePath.StartsWith(prefixToRemove))
-                        relativePath = relativePath.Substring(prefixToRemove.Length);
+                    //string prefixToRemove = $"";
+                    //if (relativePath.StartsWith(prefixToRemove))
+                    //    relativePath = relativePath.Substring(prefixToRemove.Length);
 
                     string fullPath = Path.Combine(basePath, relativePath.Replace('/', Path.DirectorySeparatorChar));
                     bool needDownload = true;
@@ -291,7 +287,7 @@ namespace DristLauncher_4
                         if (localHash == serverHash)
                             needDownload = false;
                     }
-                    if (relativePath == "minecraft/options.txt" && File.Exists(@"./minecraft/options.txt"))
+                    if (relativePath == "minecraft/options.txt" && File.Exists($"./{MinecraftOptions.Default.SelectedServer}/minecraft/options.txt"))
                     {
                         needDownload = false;
                     }
@@ -314,9 +310,9 @@ namespace DristLauncher_4
                 }
 
                 progressForm.Log("✅ Синхронизация файлов завершена.");
-                
+
                 var smine = new StartMinecraft();
-                await smine.FStartMinecraft(progressForm, debugForm);
+                await smine.FStartMinecraft(progressForm, debugForm, button);
             }
             catch (Exception ex)
             {
@@ -328,8 +324,8 @@ namespace DristLauncher_4
                 button.Enabled = true;
             }
 
-            
-            
+
+
 
         }
 
@@ -493,5 +489,5 @@ namespace DristLauncher_4
         }
     }
 }
-    
+
 

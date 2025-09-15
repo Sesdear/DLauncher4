@@ -32,7 +32,7 @@ namespace DristLauncher_4
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.NewsTimer = new System.Windows.Forms.Timer(this.components);
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer8 = new System.Windows.Forms.SplitContainer();
@@ -46,45 +46,18 @@ namespace DristLauncher_4
             this.label4 = new System.Windows.Forms.Label();
             this.ServerDescriptionLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.DotsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.NewsLabel = new System.Windows.Forms.Label();
+            this.NewsPictureBox = new Guna.UI2.WinForms.Guna2PictureBox();
             this.NicknameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.FolderButton = new Guna.UI2.WinForms.Guna2Button();
             this.SettingsButton = new Guna.UI2.WinForms.Guna2Button();
             this.PlayButton = new Guna.UI2.WinForms.Guna2Button();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.ServerDescriptionLabel1 = new System.Windows.Forms.Label();
-            this.ServerLabel1 = new System.Windows.Forms.Label();
-            this.ServerPictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ServerButton1 = new System.Windows.Forms.Button();
-            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.ServerDescriptionLabel2 = new System.Windows.Forms.Label();
-            this.ServerLabel2 = new System.Windows.Forms.Label();
-            this.ServerPictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ServerButton2 = new System.Windows.Forms.Button();
-            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.ServerDescriptionLabel3 = new System.Windows.Forms.Label();
-            this.ServerLabel3 = new System.Windows.Forms.Label();
-            this.ServerPictureBox3 = new System.Windows.Forms.PictureBox();
-            this.ServerButton3 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.githubButton = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.discordButton = new Guna.UI2.WinForms.Guna2CircleButton();
             this.vLabel = new System.Windows.Forms.Label();
-            this.versionLabel = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.ServerDescriptionLabel4 = new System.Windows.Forms.Label();
-            this.ServerLabel4 = new System.Windows.Forms.Label();
-            this.ServerPictureBox4 = new System.Windows.Forms.PictureBox();
-            this.ServerButton4 = new System.Windows.Forms.Button();
-            this.NewsPictureBox = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.NewsLabel = new System.Windows.Forms.Label();
-            this.DotsPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.NewsTimer = new System.Windows.Forms.Timer(this.components);
-            this.DiscordButton = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.GithubButton = new Guna.UI2.WinForms.Guna2CircleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -104,45 +77,17 @@ namespace DristLauncher_4
             this.splitContainer4.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
-            this.splitContainer5.Panel1.SuspendLayout();
-            this.splitContainer5.Panel2.SuspendLayout();
-            this.splitContainer5.SuspendLayout();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
-            this.splitContainer6.Panel1.SuspendLayout();
-            this.splitContainer6.Panel2.SuspendLayout();
-            this.splitContainer6.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
-            this.splitContainer7.Panel1.SuspendLayout();
-            this.splitContainer7.Panel2.SuspendLayout();
-            this.splitContainer7.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox3)).BeginInit();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NewsPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // NewsTimer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer1.Size = new System.Drawing.Size(689, 449);
-            this.splitContainer1.SplitterDistance = 193;
-            this.splitContainer1.TabIndex = 0;
+            this.NewsTimer.Enabled = true;
+            this.NewsTimer.Interval = 10000;
             // 
             // splitContainer2
             // 
@@ -170,6 +115,7 @@ namespace DristLauncher_4
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -245,7 +191,7 @@ namespace DristLauncher_4
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(189, 80);
+            this.panel1.Size = new System.Drawing.Size(187, 92);
             this.panel1.TabIndex = 0;
             // 
             // ServerNameLabel
@@ -275,6 +221,7 @@ namespace DristLauncher_4
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.IsSplitterFixed = true;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -298,7 +245,7 @@ namespace DristLauncher_4
             this.guna2Panel1.Controls.Add(this.ServerDescriptionLabel);
             this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(189, 92);
+            this.guna2Panel1.Size = new System.Drawing.Size(187, 92);
             this.guna2Panel1.TabIndex = 9;
             // 
             // label4
@@ -338,8 +285,36 @@ namespace DristLauncher_4
             this.panel3.Controls.Add(this.NewsPictureBox);
             this.panel3.Location = new System.Drawing.Point(4, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(190, 140);
+            this.panel3.Size = new System.Drawing.Size(186, 140);
             this.panel3.TabIndex = 2;
+            // 
+            // DotsPanel
+            // 
+            this.DotsPanel.Location = new System.Drawing.Point(3, 120);
+            this.DotsPanel.Name = "DotsPanel";
+            this.DotsPanel.Size = new System.Drawing.Size(182, 17);
+            this.DotsPanel.TabIndex = 2;
+            // 
+            // NewsLabel
+            // 
+            this.NewsLabel.AutoSize = true;
+            this.NewsLabel.Font = new System.Drawing.Font("Consolas", 8F);
+            this.NewsLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.NewsLabel.Location = new System.Drawing.Point(3, 89);
+            this.NewsLabel.Name = "NewsLabel";
+            this.NewsLabel.Size = new System.Drawing.Size(61, 13);
+            this.NewsLabel.TabIndex = 1;
+            this.NewsLabel.Text = "Last news";
+            // 
+            // NewsPictureBox
+            // 
+            this.NewsPictureBox.ImageRotate = 0F;
+            this.NewsPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.NewsPictureBox.Name = "NewsPictureBox";
+            this.NewsPictureBox.Size = new System.Drawing.Size(182, 81);
+            this.NewsPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.NewsPictureBox.TabIndex = 0;
+            this.NewsPictureBox.TabStop = false;
             // 
             // NicknameTextBox
             // 
@@ -421,405 +396,80 @@ namespace DristLauncher_4
             this.PlayButton.Text = "Play";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // splitContainer5
+            // splitContainer1
             // 
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer5.Name = "splitContainer5";
-            this.splitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // splitContainer5.Panel1
+            // splitContainer1.Panel1
             // 
-            this.splitContainer5.Panel1.Controls.Add(this.panel4);
-            this.splitContainer5.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer5_Panel1_Paint);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
-            // splitContainer5.Panel2
+            // splitContainer1.Panel2
             // 
-            this.splitContainer5.Panel2.Controls.Add(this.splitContainer6);
-            this.splitContainer5.Size = new System.Drawing.Size(492, 449);
-            this.splitContainer5.SplitterDistance = 104;
-            this.splitContainer5.TabIndex = 0;
+            this.splitContainer1.Panel2.Controls.Add(this.githubButton);
+            this.splitContainer1.Panel2.Controls.Add(this.discordButton);
+            this.splitContainer1.Panel2.Controls.Add(this.vLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Size = new System.Drawing.Size(689, 449);
+            this.splitContainer1.SplitterDistance = 193;
+            this.splitContainer1.TabIndex = 0;
             // 
-            // panel4
+            // githubButton
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(87)))), ((int)(((byte)(39)))));
-            this.panel4.Controls.Add(this.ServerDescriptionLabel1);
-            this.panel4.Controls.Add(this.ServerLabel1);
-            this.panel4.Controls.Add(this.ServerPictureBox1);
-            this.panel4.Controls.Add(this.ServerButton1);
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(485, 100);
-            this.panel4.TabIndex = 0;
+            this.githubButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.githubButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.githubButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.githubButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.githubButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(201)))), ((int)(((byte)(173)))));
+            this.githubButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.githubButton.ForeColor = System.Drawing.Color.White;
+            this.githubButton.Image = ((System.Drawing.Image)(resources.GetObject("githubButton.Image")));
+            this.githubButton.ImageOffset = new System.Drawing.Point(1, 0);
+            this.githubButton.ImageSize = new System.Drawing.Size(15, 15);
+            this.githubButton.Location = new System.Drawing.Point(32, 423);
+            this.githubButton.Name = "githubButton";
+            this.githubButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.githubButton.Size = new System.Drawing.Size(23, 23);
+            this.githubButton.TabIndex = 3;
+            this.githubButton.Click += new System.EventHandler(this.GithubButton_Click);
             // 
-            // ServerDescriptionLabel1
+            // discordButton
             // 
-            this.ServerDescriptionLabel1.AutoSize = true;
-            this.ServerDescriptionLabel1.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Bold);
-            this.ServerDescriptionLabel1.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerDescriptionLabel1.Location = new System.Drawing.Point(229, 54);
-            this.ServerDescriptionLabel1.Name = "ServerDescriptionLabel1";
-            this.ServerDescriptionLabel1.Size = new System.Drawing.Size(98, 23);
-            this.ServerDescriptionLabel1.TabIndex = 2;
-            this.ServerDescriptionLabel1.Text = "Not Work";
-            // 
-            // ServerLabel1
-            // 
-            this.ServerLabel1.AutoSize = true;
-            this.ServerLabel1.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerLabel1.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerLabel1.Location = new System.Drawing.Point(226, 14);
-            this.ServerLabel1.Name = "ServerLabel1";
-            this.ServerLabel1.Size = new System.Drawing.Size(134, 32);
-            this.ServerLabel1.TabIndex = 1;
-            this.ServerLabel1.Text = "Not Work";
-            // 
-            // ServerPictureBox1
-            // 
-            this.ServerPictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPictureBox1.ImageLocation = "";
-            this.ServerPictureBox1.Location = new System.Drawing.Point(3, 9);
-            this.ServerPictureBox1.Name = "ServerPictureBox1";
-            this.ServerPictureBox1.Size = new System.Drawing.Size(217, 85);
-            this.ServerPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ServerPictureBox1.TabIndex = 0;
-            this.ServerPictureBox1.TabStop = false;
-            // 
-            // ServerButton1
-            // 
-            this.ServerButton1.BackColor = System.Drawing.Color.Transparent;
-            this.ServerButton1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ServerButton1.Location = new System.Drawing.Point(0, 0);
-            this.ServerButton1.Name = "ServerButton1";
-            this.ServerButton1.Size = new System.Drawing.Size(485, 102);
-            this.ServerButton1.TabIndex = 9;
-            this.ServerButton1.UseVisualStyleBackColor = false;
-            this.ServerButton1.Click += new System.EventHandler(this.ServerButton1_Click);
-            // 
-            // splitContainer6
-            // 
-            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer6.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer6.Name = "splitContainer6";
-            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer6.Panel1
-            // 
-            this.splitContainer6.Panel1.Controls.Add(this.panel5);
-            // 
-            // splitContainer6.Panel2
-            // 
-            this.splitContainer6.Panel2.Controls.Add(this.splitContainer7);
-            this.splitContainer6.Size = new System.Drawing.Size(492, 341);
-            this.splitContainer6.SplitterDistance = 104;
-            this.splitContainer6.TabIndex = 0;
-            // 
-            // panel5
-            // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(87)))), ((int)(((byte)(39)))));
-            this.panel5.Controls.Add(this.ServerDescriptionLabel2);
-            this.panel5.Controls.Add(this.ServerLabel2);
-            this.panel5.Controls.Add(this.ServerPictureBox2);
-            this.panel5.Controls.Add(this.ServerButton2);
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(485, 100);
-            this.panel5.TabIndex = 1;
-            this.panel5.Visible = false;
-            // 
-            // ServerDescriptionLabel2
-            // 
-            this.ServerDescriptionLabel2.AutoSize = true;
-            this.ServerDescriptionLabel2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerDescriptionLabel2.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerDescriptionLabel2.Location = new System.Drawing.Point(229, 49);
-            this.ServerDescriptionLabel2.Name = "ServerDescriptionLabel2";
-            this.ServerDescriptionLabel2.Size = new System.Drawing.Size(79, 23);
-            this.ServerDescriptionLabel2.TabIndex = 3;
-            this.ServerDescriptionLabel2.Text = "Not work";
-            this.ServerDescriptionLabel2.Visible = false;
-            // 
-            // ServerLabel2
-            // 
-            this.ServerLabel2.AutoSize = true;
-            this.ServerLabel2.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerLabel2.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerLabel2.Location = new System.Drawing.Point(226, 9);
-            this.ServerLabel2.Name = "ServerLabel2";
-            this.ServerLabel2.Size = new System.Drawing.Size(158, 40);
-            this.ServerLabel2.TabIndex = 2;
-            this.ServerLabel2.Text = "Not Work";
-            this.ServerLabel2.Visible = false;
-            // 
-            // ServerPictureBox2
-            // 
-            this.ServerPictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPictureBox2.Location = new System.Drawing.Point(3, 9);
-            this.ServerPictureBox2.Name = "ServerPictureBox2";
-            this.ServerPictureBox2.Size = new System.Drawing.Size(217, 85);
-            this.ServerPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ServerPictureBox2.TabIndex = 1;
-            this.ServerPictureBox2.TabStop = false;
-            this.ServerPictureBox2.Visible = false;
-            // 
-            // ServerButton2
-            // 
-            this.ServerButton2.BackColor = System.Drawing.Color.Transparent;
-            this.ServerButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ServerButton2.Location = new System.Drawing.Point(0, 0);
-            this.ServerButton2.Name = "ServerButton2";
-            this.ServerButton2.Size = new System.Drawing.Size(485, 102);
-            this.ServerButton2.TabIndex = 8;
-            this.ServerButton2.UseVisualStyleBackColor = false;
-            this.ServerButton2.Visible = false;
-            // 
-            // splitContainer7
-            // 
-            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer7.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer7.Name = "splitContainer7";
-            this.splitContainer7.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer7.Panel1
-            // 
-            this.splitContainer7.Panel1.Controls.Add(this.panel6);
-            // 
-            // splitContainer7.Panel2
-            // 
-            this.splitContainer7.Panel2.Controls.Add(this.GithubButton);
-            this.splitContainer7.Panel2.Controls.Add(this.DiscordButton);
-            this.splitContainer7.Panel2.Controls.Add(this.vLabel);
-            this.splitContainer7.Panel2.Controls.Add(this.versionLabel);
-            this.splitContainer7.Panel2.Controls.Add(this.panel7);
-            this.splitContainer7.Size = new System.Drawing.Size(492, 233);
-            this.splitContainer7.SplitterDistance = 104;
-            this.splitContainer7.TabIndex = 0;
-            // 
-            // panel6
-            // 
-            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(87)))), ((int)(((byte)(39)))));
-            this.panel6.Controls.Add(this.ServerDescriptionLabel3);
-            this.panel6.Controls.Add(this.ServerLabel3);
-            this.panel6.Controls.Add(this.ServerPictureBox3);
-            this.panel6.Controls.Add(this.ServerButton3);
-            this.panel6.Location = new System.Drawing.Point(3, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(485, 100);
-            this.panel6.TabIndex = 1;
-            this.panel6.Visible = false;
-            // 
-            // ServerDescriptionLabel3
-            // 
-            this.ServerDescriptionLabel3.AutoSize = true;
-            this.ServerDescriptionLabel3.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerDescriptionLabel3.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerDescriptionLabel3.Location = new System.Drawing.Point(229, 44);
-            this.ServerDescriptionLabel3.Name = "ServerDescriptionLabel3";
-            this.ServerDescriptionLabel3.Size = new System.Drawing.Size(79, 23);
-            this.ServerDescriptionLabel3.TabIndex = 4;
-            this.ServerDescriptionLabel3.Text = "Not work";
-            this.ServerDescriptionLabel3.Visible = false;
-            this.ServerDescriptionLabel3.Click += new System.EventHandler(this.label8_Click_1);
-            // 
-            // ServerLabel3
-            // 
-            this.ServerLabel3.AutoSize = true;
-            this.ServerLabel3.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerLabel3.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerLabel3.Location = new System.Drawing.Point(226, 8);
-            this.ServerLabel3.Name = "ServerLabel3";
-            this.ServerLabel3.Size = new System.Drawing.Size(158, 40);
-            this.ServerLabel3.TabIndex = 3;
-            this.ServerLabel3.Text = "Not Work";
-            this.ServerLabel3.Visible = false;
-            this.ServerLabel3.Click += new System.EventHandler(this.label7_Click_1);
-            // 
-            // ServerPictureBox3
-            // 
-            this.ServerPictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPictureBox3.Location = new System.Drawing.Point(3, 7);
-            this.ServerPictureBox3.Name = "ServerPictureBox3";
-            this.ServerPictureBox3.Size = new System.Drawing.Size(217, 85);
-            this.ServerPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ServerPictureBox3.TabIndex = 2;
-            this.ServerPictureBox3.TabStop = false;
-            this.ServerPictureBox3.Visible = false;
-            // 
-            // ServerButton3
-            // 
-            this.ServerButton3.BackColor = System.Drawing.Color.Transparent;
-            this.ServerButton3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ServerButton3.Location = new System.Drawing.Point(0, 0);
-            this.ServerButton3.Name = "ServerButton3";
-            this.ServerButton3.Size = new System.Drawing.Size(485, 102);
-            this.ServerButton3.TabIndex = 7;
-            this.ServerButton3.UseVisualStyleBackColor = false;
-            this.ServerButton3.Visible = false;
+            this.discordButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.discordButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.discordButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.discordButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.discordButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(201)))), ((int)(((byte)(173)))));
+            this.discordButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.discordButton.ForeColor = System.Drawing.Color.White;
+            this.discordButton.Image = ((System.Drawing.Image)(resources.GetObject("discordButton.Image")));
+            this.discordButton.Location = new System.Drawing.Point(3, 423);
+            this.discordButton.Name = "discordButton";
+            this.discordButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.discordButton.Size = new System.Drawing.Size(23, 23);
+            this.discordButton.TabIndex = 2;
+            this.discordButton.Click += new System.EventHandler(this.DiscordButton_Click);
             // 
             // vLabel
             // 
             this.vLabel.AutoSize = true;
-            this.vLabel.Location = new System.Drawing.Point(445, 109);
+            this.vLabel.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.vLabel.Location = new System.Drawing.Point(434, 427);
             this.vLabel.Name = "vLabel";
-            this.vLabel.Size = new System.Drawing.Size(0, 13);
-            this.vLabel.TabIndex = 3;
+            this.vLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.vLabel.Size = new System.Drawing.Size(13, 13);
+            this.vLabel.TabIndex = 1;
+            this.vLabel.Text = ".";
             // 
-            // versionLabel
+            // flowLayoutPanel1
             // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(559, 109);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(0, 13);
-            this.versionLabel.TabIndex = 2;
-            // 
-            // panel7
-            // 
-            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(87)))), ((int)(((byte)(39)))));
-            this.panel7.Controls.Add(this.ServerDescriptionLabel4);
-            this.panel7.Controls.Add(this.ServerLabel4);
-            this.panel7.Controls.Add(this.ServerPictureBox4);
-            this.panel7.Controls.Add(this.ServerButton4);
-            this.panel7.Location = new System.Drawing.Point(3, 3);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(485, 100);
-            this.panel7.TabIndex = 1;
-            this.panel7.Visible = false;
-            // 
-            // ServerDescriptionLabel4
-            // 
-            this.ServerDescriptionLabel4.AutoSize = true;
-            this.ServerDescriptionLabel4.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerDescriptionLabel4.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerDescriptionLabel4.Location = new System.Drawing.Point(229, 43);
-            this.ServerDescriptionLabel4.Name = "ServerDescriptionLabel4";
-            this.ServerDescriptionLabel4.Size = new System.Drawing.Size(79, 23);
-            this.ServerDescriptionLabel4.TabIndex = 5;
-            this.ServerDescriptionLabel4.Text = "Not work";
-            this.ServerDescriptionLabel4.Visible = false;
-            // 
-            // ServerLabel4
-            // 
-            this.ServerLabel4.AutoSize = true;
-            this.ServerLabel4.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ServerLabel4.ForeColor = System.Drawing.SystemColors.Window;
-            this.ServerLabel4.Location = new System.Drawing.Point(226, 3);
-            this.ServerLabel4.Name = "ServerLabel4";
-            this.ServerLabel4.Size = new System.Drawing.Size(158, 40);
-            this.ServerLabel4.TabIndex = 4;
-            this.ServerLabel4.Text = "Not Work";
-            this.ServerLabel4.Visible = false;
-            // 
-            // ServerPictureBox4
-            // 
-            this.ServerPictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPictureBox4.Location = new System.Drawing.Point(3, 3);
-            this.ServerPictureBox4.Name = "ServerPictureBox4";
-            this.ServerPictureBox4.Size = new System.Drawing.Size(217, 85);
-            this.ServerPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ServerPictureBox4.TabIndex = 3;
-            this.ServerPictureBox4.TabStop = false;
-            this.ServerPictureBox4.Visible = false;
-            // 
-            // ServerButton4
-            // 
-            this.ServerButton4.BackColor = System.Drawing.Color.Transparent;
-            this.ServerButton4.FlatAppearance.BorderSize = 0;
-            this.ServerButton4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ServerButton4.Location = new System.Drawing.Point(0, -2);
-            this.ServerButton4.Name = "ServerButton4";
-            this.ServerButton4.Size = new System.Drawing.Size(485, 102);
-            this.ServerButton4.TabIndex = 6;
-            this.ServerButton4.UseVisualStyleBackColor = false;
-            this.ServerButton4.Visible = false;
-            // 
-            // NewsPictureBox
-            // 
-            this.NewsPictureBox.ImageRotate = 0F;
-            this.NewsPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.NewsPictureBox.Name = "NewsPictureBox";
-            this.NewsPictureBox.Size = new System.Drawing.Size(182, 81);
-            this.NewsPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.NewsPictureBox.TabIndex = 0;
-            this.NewsPictureBox.TabStop = false;
-            // 
-            // NewsLabel
-            // 
-            this.NewsLabel.AutoSize = true;
-            this.NewsLabel.Font = new System.Drawing.Font("Consolas", 8F);
-            this.NewsLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.NewsLabel.Location = new System.Drawing.Point(3, 89);
-            this.NewsLabel.Name = "NewsLabel";
-            this.NewsLabel.Size = new System.Drawing.Size(61, 13);
-            this.NewsLabel.TabIndex = 1;
-            this.NewsLabel.Text = "Last news";
-            // 
-            // DotsPanel
-            // 
-            this.DotsPanel.Location = new System.Drawing.Point(3, 120);
-            this.DotsPanel.Name = "DotsPanel";
-            this.DotsPanel.Size = new System.Drawing.Size(182, 17);
-            this.DotsPanel.TabIndex = 2;
-            // 
-            // NewsTimer
-            // 
-            this.NewsTimer.Enabled = true;
-            this.NewsTimer.Interval = 10000;
-            // 
-            // DiscordButton
-            // 
-            this.DiscordButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.DiscordButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.DiscordButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.DiscordButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.DiscordButton.FillColor = System.Drawing.Color.LightGray;
-            this.DiscordButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.DiscordButton.ForeColor = System.Drawing.Color.White;
-            this.DiscordButton.Image = ((System.Drawing.Image)(resources.GetObject("DiscordButton.Image")));
-            this.DiscordButton.ImageOffset = new System.Drawing.Point(1, 0);
-            this.DiscordButton.Location = new System.Drawing.Point(6, 84);
-            this.DiscordButton.Name = "DiscordButton";
-            this.DiscordButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.DiscordButton.Size = new System.Drawing.Size(37, 37);
-            this.DiscordButton.TabIndex = 4;
-            this.DiscordButton.Click += new System.EventHandler(this.DiscordButton_Click);
-            // 
-            // GithubButton
-            // 
-            this.GithubButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.GithubButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.GithubButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.GithubButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.GithubButton.FillColor = System.Drawing.Color.LightGray;
-            this.GithubButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GithubButton.ForeColor = System.Drawing.Color.White;
-            this.GithubButton.Image = ((System.Drawing.Image)(resources.GetObject("GithubButton.Image")));
-            this.GithubButton.ImageOffset = new System.Drawing.Point(1, 0);
-            this.GithubButton.Location = new System.Drawing.Point(49, 84);
-            this.GithubButton.Name = "GithubButton";
-            this.GithubButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.GithubButton.Size = new System.Drawing.Size(37, 37);
-            this.GithubButton.TabIndex = 5;
-            this.GithubButton.Click += new System.EventHandler(this.GithubButton_Click);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(486, 414);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -833,10 +483,6 @@ namespace DristLauncher_4
             this.MinimumSize = new System.Drawing.Size(705, 488);
             this.Name = "MainWindow";
             this.Text = "DristLauncher 4";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -860,87 +506,43 @@ namespace DristLauncher_4
             this.guna2Panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.splitContainer5.Panel1.ResumeLayout(false);
-            this.splitContainer5.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
-            this.splitContainer5.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox1)).EndInit();
-            this.splitContainer6.Panel1.ResumeLayout(false);
-            this.splitContainer6.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
-            this.splitContainer6.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox2)).EndInit();
-            this.splitContainer7.Panel1.ResumeLayout(false);
-            this.splitContainer7.Panel2.ResumeLayout(false);
-            this.splitContainer7.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
-            this.splitContainer7.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox3)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServerPictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NewsPictureBox)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Timer NewsTimer;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.SplitContainer splitContainer4;
-        private System.Windows.Forms.SplitContainer splitContainer5;
         private System.Windows.Forms.SplitContainer splitContainer8;
-        private System.Windows.Forms.SplitContainer splitContainer6;
-        private System.Windows.Forms.SplitContainer splitContainer7;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label ServerNameLabel;
-        private System.Windows.Forms.Label ServerDescriptionLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label ServerLabel1;
-        private System.Windows.Forms.PictureBox ServerPictureBox1;
-        private System.Windows.Forms.PictureBox ServerPictureBox2;
-        private System.Windows.Forms.PictureBox ServerPictureBox3;
-        private System.Windows.Forms.PictureBox ServerPictureBox4;
-        private System.Windows.Forms.Label ServerLabel2;
-        private System.Windows.Forms.Label ServerLabel3;
-        private System.Windows.Forms.Label ServerLabel4;
-        private System.Windows.Forms.Label ServerDescriptionLabel1;
-        private System.Windows.Forms.Label ServerDescriptionLabel2;
-        private System.Windows.Forms.Label ServerDescriptionLabel3;
-        private System.Windows.Forms.Label ServerDescriptionLabel4;
-        private System.Windows.Forms.Button ServerButton4;
-        private System.Windows.Forms.Button ServerButton1;
-        private System.Windows.Forms.Button ServerButton2;
-        private System.Windows.Forms.Button ServerButton3;
-        private System.Windows.Forms.Label versionLabel;
-        private Guna.UI2.WinForms.Guna2Button PlayButton;
+        private System.Windows.Forms.Label ServerDescriptionLabel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.FlowLayoutPanel DotsPanel;
+        private System.Windows.Forms.Label NewsLabel;
+        private Guna.UI2.WinForms.Guna2PictureBox NewsPictureBox;
         private Guna.UI2.WinForms.Guna2TextBox NicknameTextBox;
         private Guna.UI2.WinForms.Guna2Button FolderButton;
         private Guna.UI2.WinForms.Guna2Button SettingsButton;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Guna.UI2.WinForms.Guna2Button PlayButton;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2CircleButton githubButton;
+        private Guna.UI2.WinForms.Guna2CircleButton discordButton;
         private System.Windows.Forms.Label vLabel;
-        private Guna.UI2.WinForms.Guna2PictureBox NewsPictureBox;
-        private System.Windows.Forms.FlowLayoutPanel DotsPanel;
-        private System.Windows.Forms.Label NewsLabel;
-        private System.Windows.Forms.Timer NewsTimer;
-        private Guna.UI2.WinForms.Guna2CircleButton DiscordButton;
-        private Guna.UI2.WinForms.Guna2CircleButton GithubButton;
     }
 }
 

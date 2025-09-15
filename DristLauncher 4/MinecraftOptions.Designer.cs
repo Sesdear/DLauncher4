@@ -238,5 +238,17 @@ namespace DristLauncher_4 {
                 this["ClientToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedServer {
+            get {
+                return ((string)(this["SelectedServer"]));
+            }
+            set {
+                this["SelectedServer"] = value;
+            }
+        }
     }
 }

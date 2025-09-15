@@ -27,7 +27,7 @@ namespace DristLauncher_4
         private void ApplyColorsToControls(Control parent)
         {
             textBox1.FillColor = ParseColor(LauncherSettings.Default.PanelsColor);
-            
+
 
         }
 
